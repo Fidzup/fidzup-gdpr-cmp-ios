@@ -10,7 +10,7 @@ Pod::Spec.new do |spec|
   spec.swift_version         = "4.0"
   spec.platform              = :ios, "8.0"
   spec.ios.deployment_target = "8.0"
-  spec.source_files          = "framework/FidzupCMP/**/*.{h,m,swift}"
-  spec.resources             = "framework/FidzupCMP/**/*.{plist,storyboard}"
+  spec.source_files          = "framework/SmartCMP/**/*.{h,m,swift}"
+  spec.resources             = "framework/SmartCMP/**/*.{plist,storyboard}"
   spec.framework             = "AdSupport"
 end

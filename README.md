@@ -1,12 +1,12 @@
-# SmartCMP for iOS
+# FidzupCMP for iOS
 
 ## Introduction
 
-_SmartCMP for iOS_ is a iOS framework allowing you to retrieve and store the user's consent for data usage in your iOS apps.
+_FidzupCMP for iOS_ is a iOS framework allowing you to retrieve and store the user's consent for data usage in your iOS apps. It conforms to the CNIL needs. It's a fork of the [SmartCMP](https://github.com/smartadserver/smart-gdpr-cmp-ios)
 
 The purposes & vendors retrieval as well as the consent storage is compliant with [IAB Transparency and Consent Framework specifications](https://github.com/InteractiveAdvertisingBureau/GDPR-Transparency-and-Consent-Framework).
 
-Retrieving user consent is mandatory in EU starting May 25th due to the _General Data Protection Regulation (GDPR)_.
+Retrieving user consent is mandatory in EU starting May 25th due to the _General Data Protection Regulation (GDPR)_, and the refuse button is mandatory to comply with the regulation.
 
 <p align="center">
   <img src="images/ios-consent-tool.gif" alt="Consent tool on iOS"/>
@@ -18,25 +18,25 @@ Retrieving user consent is mandatory in EU starting May 25th due to the _General
 
 #### Using Cocoapods (recommended)
 
-Import the pod _SmartCMP_ in your project by adding to your _Podspec_ file:
+Import the pod _FidzupCMP_ in your project by adding to your _Podspec_ file:
 
-    pod 'SmartCMP'
+    pod 'FidzupCMP'
 
-Then run ```pod update``` to install _SmartCMP_.
+Then run ```pod update``` to install _FidzupCMP_.
 
 #### From the Git repository
 
-Download this repository, drag the ```SmartCMP.xcodeproj``` from the _framework_ directory to your _Xcode_ project and add the ```SmartCMP.framework``` target to the _Embedded Binaries_ section of your project _General_ properties.
+Download this repository, drag the ```FidzupCMP.xcodeproj``` from the _framework_ directory to your _Xcode_ project and add the ```FidzupCMP.framework``` target to the _Embedded Binaries_ section of your project _General_ properties.
 
 ### Integration
 
 The CMP must be imported before being used:
 
-    import SmartCMP
+    import FidzupCMP
 
 Note: if your app is developed in Objective-C, you can import the CMP using:
 
-    #import <SmartCMP/SmartCMP-Swift.h>
+    #import <FidzupCMP/FidzupCMP-Swift.h>
 
 You must setup the CMP before using it. Start by creating a configuration object that will define how the first screen of the consent tool will look like:
 
@@ -44,6 +44,7 @@ You must setup the CMP before using it. Start by creating a configuration object
                                              homeScreenText: "[Place here your legal privacy notice for the consent tool, compliant with GDPR]",
                                              homeScreenManageConsentButtonTitle: "MANAGE MY CHOICES",
                                              homeScreenCloseButtonTitle: "GOT IT, THANKS!",
+                                             homeScreenCloseRefuseButtonTitle: "GOT IT, BUT NO THANKS!",
                                              consentManagementScreenTitle: "Privacy preferences",
                                              consentManagementCancelButtonTitle: "Cancel",
                                              consentManagementSaveButtonTitle: "Save",
@@ -88,13 +89,13 @@ However, if you configure the CMP with the parameter ```showConsentToolWhenLimit
 
 ## Known limitations
 
-The current version of _SmartCMP_ has the following limitations:
+The current version of _FidzupCMP_ has the following limitations:
 
 * The consent tool UI is not customizable (except for static texts). You can however build your own UI and display it in the ```consentManagerRequestsToShowConsentTool``` delegate method using the ```vendorList``` parameter.
 * _AppleTV_ apps are not supported.
 * The IAB specification allows publishers to display only a subset of purposes & vendors using a _pubvendors.json_ file, stored on their own infrastructure. _SmartCMP_ does not implement this feature at this time.
 * No static texts are provided by default (you must provide them to ```CMPConsentToolConfiguration```). The ```homeScreenText``` should be validated by your legal department.
-* _SmartCMP_ does not have any logic to know if GDPR applies or not based on user's location / age at this time. For the moment it is the publisher's responsibility to determine whether or not GDPR applies and if the consent tool UI should be shown to the user, as well as requesting permission to fetch location or other including / excluding criteria.
+* _FidzupCMP_ does not have any logic to know if GDPR applies or not based on user's location / age at this time. For the moment it is the publisher's responsibility to determine whether or not GDPR applies and if the consent tool UI should be shown to the user, as well as requesting permission to fetch location or other including / excluding criteria.
 
 ## License
 
@@ -104,8 +105,8 @@ This software is distributed under the _Creative Commons Legal Code, Attribution
 
 Check the [LICENSE file](LICENSE) for more details.
 
-### Reusing SmartCMP ID
+### Reusing FidzupCMP ID
 
-The CMP ID _'33'_ used for consent string encoding is the CMP ID of _Smart AdServer_.
+The CMP ID _'???'_ used for consent string encoding is the CMP ID of _Fidzup_.
 
-You can use this CMP ID as long as you don't alter the source code of _SmartCMP_. If you do modify the source code, **YOU MUST REGISTER YOUR FORK AS A NEW CMP and change the CMP ID** in ```CMPConstants.CMPInfos.ID```. You can register your forked CMP and obtain your own ID here: https://register.consensu.org/CMP
+You can use this CMP ID as long as you don't alter the source code of _FidzupCMP_. If you do modify the source code, **YOU MUST REGISTER YOUR FORK AS A NEW CMP and change the CMP ID** in ```CMPConstants.CMPInfos.ID```. You can register your forked CMP and obtain your own ID here: https://register.consensu.org/CMP

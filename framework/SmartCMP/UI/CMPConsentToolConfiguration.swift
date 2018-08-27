@@ -33,8 +33,13 @@ public class CMPConsentToolConfiguration: NSObject {
     ///
     /// Eg: "MANAGE MY CHOICES"
     let homeScreenManageConsentButtonTitle: String
-    
-    /// Text of the button to close the consent tool directly.
+ 
+    /// Text of the button to close the consent tool directly and refuse.
+    ///
+    // Eg: "GOT IT, BUT NO THANKS!"
+    let homeScreenCloseRefuseButtonTitle: String
+
+    /// Text of the button to close the consent tool directly and accept.
     ///
     // Eg: "GOT IT, THANKS!"
     let homeScreenCloseButtonTitle: String
@@ -147,6 +152,7 @@ public class CMPConsentToolConfiguration: NSObject {
                 homeScreenText: String,
                 homeScreenManageConsentButtonTitle: String,
                 homeScreenCloseButtonTitle: String,
+                homeScreenCloseRefuseButtonTitle: String,
                 consentManagementScreenTitle: String,
                 consentManagementCancelButtonTitle: String,
                 consentManagementSaveButtonTitle: String,
@@ -166,6 +172,7 @@ public class CMPConsentToolConfiguration: NSObject {
         self.homeScreenText = homeScreenText
         self.homeScreenManageConsentButtonTitle = homeScreenManageConsentButtonTitle
         self.homeScreenCloseButtonTitle = homeScreenCloseButtonTitle
+        self.homeScreenCloseRefuseButtonTitle = homeScreenCloseRefuseButtonTitle
         self.consentManagementScreenTitle = consentManagementScreenTitle
         self.consentManagementCancelButtonTitle = consentManagementCancelButtonTitle
         self.consentManagementSaveButtonTitle = consentManagementSaveButtonTitle

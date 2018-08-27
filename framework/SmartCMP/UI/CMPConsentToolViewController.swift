@@ -24,7 +24,8 @@ internal class CMPConsentToolViewController: UIViewController {
     @IBOutlet weak var homeLabel: UILabel!
     @IBOutlet weak var manageConsentButton: UIButton!
     @IBOutlet weak var closeConsentButton: UIButton!
-    
+    @IBOutlet weak var closeRefuseConsentButton: UIButton!
+
     // MARK: - Consent Tool Manager
     
     weak var consentToolManager: CMPConsentToolManager?
@@ -41,6 +42,7 @@ internal class CMPConsentToolViewController: UIViewController {
             homeLabel.sizeToFit()
             manageConsentButton.setTitle(configuration.homeScreenManageConsentButtonTitle, for: .normal)
             closeConsentButton.setTitle(configuration.homeScreenCloseButtonTitle, for: .normal)            
+            closeRefuseConsentButton.setTitle(configuration.homeScreenCloseRefuseButtonTitle, for: .normal)
         }
         
     }

@@ -7,13 +7,14 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Consent Tool View Controller-->
         <scene sceneID="oXg-eu-dfr">
             <objects>
-                <viewController storyboardIdentifier="CMPConsentToolViewController" id="wcD-l0-JOr" customClass="CMPConsentToolViewController" customModule="SmartCMP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CMPConsentToolViewController" id="wcD-l0-JOr" customClass="CMPConsentToolViewController" customModule="FidzupCMP" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WiR-BG-6n2"/>
                         <viewControllerLayoutGuide type="bottom" id="F2x-r5-meP"/>
@@ -106,13 +107,13 @@
         <!--User Privacy Preferences-->
         <scene sceneID="shp-wv-adV">
             <objects>
-                <tableViewController id="2Y0-eq-fbA" customClass="CMPConsentToolPreferencesViewController" customModule="SmartCMP" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="nfj-ti-cR2">
+                <tableViewController id="2Y0-eq-fbA" customClass="CMPConsentToolPreferencesViewController" customModule="FidzupCMP" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="nfj-ti-cR2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="purposeCell" id="4gy-Nr-BvP" userLabel="purposeCell" customClass="CMPPreferenceTableViewCell" customModule="SmartCMP" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="purposeCell" id="4gy-Nr-BvP" userLabel="purposeCell" customClass="CMPPurposeTableViewCell" customModule="FidzupCMP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4gy-Nr-BvP" id="SKA-xz-6nB">
@@ -120,33 +121,44 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Purpose name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="eGo-HK-RPc">
-                                            <rect key="frame" x="20" y="11" width="529.5" height="21"/>
+                                            <rect key="frame" x="20" y="11.5" width="110.5" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="yes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qvi-pq-wqz">
-                                            <rect key="frame" x="557.5" y="11.5" width="26.5" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2TJ-Xg-co9">
+                                            <rect key="frame" x="257" y="6" width="49" height="31"/>
+                                            <connections>
+                                                <action selector="purposeSwitchValueChanged:" destination="4gy-Nr-BvP" eventType="valueChanged" id="osh-jN-jki"/>
+                                            </connections>
+                                        </switch>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" ambiguous="YES" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7q4-0v-E0r">
+                                            <rect key="frame" x="0.0" y="44" width="320" height="216.5"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" priority="500" constant="44" id="BWz-ko-xJz"/>
+                                            </constraints>
+                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="eGo-HK-RPc" firstAttribute="centerY" secondItem="SKA-xz-6nB" secondAttribute="centerY" id="AuH-PK-zrc"/>
-                                        <constraint firstItem="Qvi-pq-wqz" firstAttribute="leading" secondItem="eGo-HK-RPc" secondAttribute="trailing" constant="8" symbolic="YES" id="DCP-3u-md3"/>
-                                        <constraint firstItem="Qvi-pq-wqz" firstAttribute="trailing" secondItem="SKA-xz-6nB" secondAttribute="trailingMargin" constant="4" id="df1-dx-E43"/>
-                                        <constraint firstItem="Qvi-pq-wqz" firstAttribute="centerY" secondItem="SKA-xz-6nB" secondAttribute="centerY" id="e5d-RA-gnQ"/>
+                                        <constraint firstItem="7q4-0v-E0r" firstAttribute="width" secondItem="SKA-xz-6nB" secondAttribute="width" id="077-g0-mKY"/>
+                                        <constraint firstItem="2TJ-Xg-co9" firstAttribute="top" secondItem="SKA-xz-6nB" secondAttribute="top" constant="6" id="JTL-Bk-r5d"/>
+                                        <constraint firstItem="eGo-HK-RPc" firstAttribute="top" secondItem="SKA-xz-6nB" secondAttribute="top" constant="11.5" id="Sxm-4H-vto"/>
+                                        <constraint firstItem="7q4-0v-E0r" firstAttribute="top" secondItem="SKA-xz-6nB" secondAttribute="top" constant="44" id="WcI-HH-EEu"/>
+                                        <constraint firstAttribute="trailing" secondItem="2TJ-Xg-co9" secondAttribute="trailing" constant="16" id="oyI-q9-wJL"/>
                                         <constraint firstItem="eGo-HK-RPc" firstAttribute="leading" secondItem="SKA-xz-6nB" secondAttribute="leading" constant="20" symbolic="YES" id="wnE-Wc-dtb"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="nameLabel" destination="eGo-HK-RPc" id="uLN-FP-Ydw"/>
-                                    <outlet property="statusLabel" destination="Qvi-pq-wqz" id="alo-Fi-546"/>
-                                    <segue destination="A6v-2n-zLl" kind="show" identifier="purposeControllerSegue" id="rqB-YJ-jQp"/>
+                                    <outlet property="purposeDesc" destination="7q4-0v-E0r" id="v52-by-99S"/>
+                                    <outlet property="purposeSwitch" destination="2TJ-Xg-co9" id="bVq-28-he0"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="vendorsCell" id="2mE-iG-Dil" userLabel="vendorsCell" customClass="CMPPreferenceTableViewCell" customModule="SmartCMP" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="vendorsCell" id="2mE-iG-Dil" userLabel="vendorsCell" customClass="CMPPreferenceTableViewCell" customModule="FidzupCMP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2mE-iG-Dil" id="S28-IE-SiP">
@@ -159,8 +171,8 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="15 / 15" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="7Jc-ha-GaU" userLabel="Status Label" customClass="CMPRoundedLabel" customModule="SmartCMP" customModuleProvider="target">
-                                            <rect key="frame" x="532" y="12.5" width="64" height="19.5"/>
+                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="15 / 15" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="7Jc-ha-GaU" userLabel="Status Label" customClass="CMPRoundedLabel" customModule="FidzupCMP" customModuleProvider="target">
+                                            <rect key="frame" x="252" y="12.5" width="64" height="19.5"/>
                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="64" id="5qO-k3-jJr"/>
@@ -180,7 +192,10 @@
                                 <connections>
                                     <outlet property="nameLabel" destination="8vn-gV-fmw" id="BNA-rv-fgE"/>
                                     <outlet property="statusLabel" destination="7Jc-ha-GaU" id="dEZ-eW-5yW"/>
-                                    <segue destination="gGU-OE-RRX" kind="show" identifier="vendorsControllerSegue" id="UfH-E1-ehC"/>
+                                    <segue destination="gGU-OE-RRX" kind="show" identifier="vendorsControllerSegue" id="UfH-E1-ehC">
+                                        <segue key="commit" inheritsFrom="parent" id="ezo-i9-bNv"/>
+                                        <segue key="preview" inheritsFrom="commit" id="H5g-z1-qFf"/>
+                                    </segue>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -198,13 +213,13 @@
         <!--Vendors-->
         <scene sceneID="XAI-dy-CYc">
             <objects>
-                <tableViewController title="Vendors" id="gGU-OE-RRX" customClass="CMPConsentToolVendorsViewController" customModule="SmartCMP" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Vendors" id="gGU-OE-RRX" customClass="CMPConsentToolVendorsViewController" customModule="FidzupCMP" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="2Sz-CD-lYJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="vendorCell" id="iCq-45-Yro" customClass="CMPVendorTableViewCell" customModule="SmartCMP" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="vendorCell" id="iCq-45-Yro" customClass="CMPVendorTableViewCell" customModule="FidzupCMP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iCq-45-Yro" id="ptw-3I-0ht">
@@ -212,13 +227,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Smart" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="md4-jM-Bf5" userLabel="Vendor Name Label">
-                                            <rect key="frame" x="16" y="12" width="509" height="21"/>
+                                            <rect key="frame" x="16" y="12" width="229" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="acT-eh-bNc">
-                                            <rect key="frame" x="533" y="6" width="51" height="31"/>
+                                            <rect key="frame" x="253" y="6" width="51" height="31"/>
                                             <connections>
                                                 <action selector="vendorSwitchValueChanged:" destination="iCq-45-Yro" eventType="valueChanged" id="TfX-6F-6eS"/>
                                             </connections>
@@ -252,7 +267,7 @@
         <!--Vendor-->
         <scene sceneID="KGb-GT-71K">
             <objects>
-                <tableViewController title="Vendor" id="Z4Q-Wy-Kxp" customClass="CMPConsentToolVendorViewController" customModule="SmartCMP" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Vendor" id="Z4Q-Wy-Kxp" customClass="CMPConsentToolVendorViewController" customModule="FidzupCMP" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="IeU-1h-KMG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -286,7 +301,7 @@
         <!--Purpose-->
         <scene sceneID="RQ0-ox-t8I">
             <objects>
-                <tableViewController title="Purpose" id="A6v-2n-zLl" customClass="CMPConsentToolPurposeViewController" customModule="SmartCMP" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Purpose" id="A6v-2n-zLl" customClass="CMPConsentToolPurposeViewController" customModule="FidzupCMP" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="euE-fD-nca">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -314,7 +329,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Purpose description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UdL-qN-8HP">
-                                    <rect key="frame" x="8" y="8" width="584" height="18"/>
+                                    <rect key="frame" x="8" y="8" width="304" height="18"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -344,7 +359,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gaO-g5-6oh">
-                                                    <rect key="frame" x="536" y="6" width="51" height="31"/>
+                                                    <rect key="frame" x="256" y="6" width="51" height="31"/>
                                                     <connections>
                                                         <action selector="purposeActiveSwitchValueChanged:" destination="A6v-2n-zLl" eventType="valueChanged" id="zJy-DY-Vnv"/>
                                                     </connections>
@@ -386,7 +401,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="2Y0-eq-fbA" kind="relationship" relationship="rootViewController" id="Lsm-c2-wE4"/>
+                        <segue destination="2Y0-eq-fbA" kind="relationship" relationship="rootViewController" id="Kob-NX-4lk"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GQ4-Uv-sv7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -394,4 +409,7 @@
             <point key="canvasLocation" x="-1529" y="-28"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="UfH-E1-ehC"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -26,6 +26,8 @@ internal class CMPConsentToolPreferencesViewController: CMPConsentToolBaseViewCo
     static let PurposeControllerSegue = "purposeControllerSegue"
     static let VendorsControllerSegue = "vendorsControllerSegue"
     
+    var purposeHeights: [CGFloat] = []
+    
     // MARK: - Consent Tool Manager
     
     weak var consentToolManager: CMPConsentToolManager?
@@ -33,6 +35,13 @@ internal class CMPConsentToolPreferencesViewController: CMPConsentToolBaseViewCo
     // MARK: - View lifecycle
 
     override func viewDidLoad() {
+        
+        var purposesCount = consentToolManager?.purposesCount ?? 1
+        while purposesCount > 0 {
+            purposesCount -= 1
+            purposeHeights.append(44)
+        }
+        
         super.viewDidLoad()
         
         self.title = consentToolManager?.configuration.consentManagementScreenTitle
@@ -98,13 +107,18 @@ internal class CMPConsentToolPreferencesViewController: CMPConsentToolBaseViewCo
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         if indexPath.section == CMPConsentToolPreferencesViewController.PurposeSection {
-            let cell = tableView.dequeueReusableCell(withIdentifier: CMPConsentToolPreferencesViewController.PurposeCellIdentifier) as! CMPPreferenceTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: CMPConsentToolPreferencesViewController.PurposeCellIdentifier) as! CMPPurposeTableViewCell
 
             if let purpose = consentToolManager?.purposeAtIndex(indexPath.row) {
                 cell.nameLabel.text = purpose.name
-                cell.statusLabel.text = consentToolManager!.isPurposeAllowed(purpose) ? consentToolManager?.configuration.consentManagementActivatedText : consentToolManager?.configuration.consentManagementDeactivatedText
+                cell.setPurposeActive(consent: consentToolManager!.isPurposeAllowed(purpose))
+                cell.purposeDesc.text = purpose.purposeDescription
+                cell.purposeActiveSwitchCallback =  { (switch) -> Void in
+                    self.consentToolManager?.changePurposeConsent(purpose, consent: cell.purposeIsActive)
+                }
             }
-            cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator;
+            //cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator;
+            
             return cell
             
         } else {
@@ -113,7 +127,7 @@ internal class CMPConsentToolPreferencesViewController: CMPConsentToolBaseViewCo
             cell.nameLabel.text = consentToolManager?.configuration.consentManagementVendorsControllerAccessText
             if let consentToolManager = self.consentToolManager {
                 cell.statusLabel.text = String(consentToolManager.allowedVendorCount) + " / " + String(consentToolManager.activatedVendorCount)
-                cell.statusLabel.sizeToFit()
+                //cell.statusLabel.sizeToFit()
             }
             cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator;
             return cell
@@ -155,6 +169,36 @@ internal class CMPConsentToolPreferencesViewController: CMPConsentToolBaseViewCo
             }
         }
     }
+ 
     
+    ////////
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        updateTableView()
+    }
+    
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        updateTableView()
+    }
+    
+    private func updateTableView() {
+        self.tableView.beginUpdates()
+        self.tableView.endUpdates()
+    }
+    
+    /////////
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if let selectedIndexPaths = tableView.indexPathsForSelectedRows, selectedIndexPaths.contains(indexPath) {
+            if let cell = tableView.cellForRow(at: indexPath) as! CMPPurposeTableViewCell? {
+                let height = cell.computeDescHeight()
+                purposeHeights[indexPath.row] = height // remember for later
+                return height // Expanded height
+            }
+            return purposeHeights[indexPath.row] // cell is outside the screen, i.e. unavailable : use cache
+        }
+        
+        return 44.0 // Normal height
+    }
 
 }

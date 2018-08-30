@@ -79,6 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CMPConsentManagerDelegate
                                            homeScreenText: "[Place here your legal privacy notice for the consent tool, compliant with GDPR]",
                                            homeScreenManageConsentButtonTitle: "MANAGE MY CHOICES",
                                            homeScreenCloseButtonTitle: "GOT IT, THANKS!",
+                                           homeScreenCloseRefuseButtonTitle: "GOT IT, BUT NO THANKS!",
                                            consentManagementScreenTitle: "Privacy preferences",
                                            consentManagementCancelButtonTitle: "Cancel",
                                            consentManagementSaveButtonTitle: "Save",

@@ -189,13 +189,15 @@ internal class CMPConsentToolPreferencesViewController: CMPConsentToolBaseViewCo
     /////////
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if let selectedIndexPaths = tableView.indexPathsForSelectedRows, selectedIndexPaths.contains(indexPath) {
-            if let cell = tableView.cellForRow(at: indexPath) as! CMPPurposeTableViewCell? {
-                let height = cell.computeDescHeight()
-                purposeHeights[indexPath.row] = height // remember for later
-                return height // Expanded height
+        if indexPath.section == 0 {
+            if let selectedIndexPaths = tableView.indexPathsForSelectedRows, selectedIndexPaths.contains(indexPath) {
+                if let cell = tableView.cellForRow(at: indexPath) as! CMPPurposeTableViewCell? {
+                    let height = cell.computeDescHeight()
+                    purposeHeights[indexPath.row] = height // remember for later
+                    return height // Expanded height
+                }
+                return purposeHeights[indexPath.row] // cell is outside the screen, i.e. unavailable : use cache
             }
-            return purposeHeights[indexPath.row] // cell is outside the screen, i.e. unavailable : use cache
         }
         
         return 44.0 // Normal height

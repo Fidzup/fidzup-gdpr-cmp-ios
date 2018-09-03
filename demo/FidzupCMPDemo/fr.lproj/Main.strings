@@ -1,0 +1,8 @@
+
+/* Class = "UILabel"; text = "Stored consent string:"; ObjectID = "LRP-w1-QSt"; */
+"LRP-w1-QSt.text" = "Chaine de caractère du consentement:";
+
+/* Class = "UIButton"; normalTitle = "Show Consent Tool"; ObjectID = "SPv-ID-mtq"; */
+"SPv-ID-mtq.normalTitle" = "Afficher la popup de consentement";
+
+"Manage my choices" = "Gérer mes paramètres";

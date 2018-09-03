@@ -69,10 +69,12 @@ internal extension CMPConsentString {
             let cmpVersion = CMPBitUtils.bitsToInt(buffer.pop(numberOfBits: versionConfig.cmpVersionBitSize)),
             let consentScreen = CMPBitUtils.bitsToInt(buffer.pop(numberOfBits: versionConfig.consentScreenBitSize)),
             let consentLanguage = CMPBitUtils.bitsToLanguage(buffer.pop(numberOfBits: versionConfig.consentLanguageBitSize)),
+            let editorVersion = CMPBitUtils.bitsToInt(buffer.pop(numberOfBits: versionConfig.editorVersionBitSize)),
             let vendorListVersion = CMPBitUtils.bitsToInt(buffer.pop(numberOfBits: versionConfig.vendorListVersionBitSize)) {
             
+            let editorPurposes = consentArray(bitfield: buffer.pop(numberOfBits: versionConfig.editorPurposesBitSize))
             let allowedPurposes = consentArray(bitfield: buffer.pop(numberOfBits: versionConfig.allowedPurposesBitSize))
-            
+
             if let maxVendorId = CMPBitUtils.bitsToInt(buffer.pop(numberOfBits: versionConfig.maxVendorIdBitSize)) {
                 
                 var allowedVendors: IndexSet? = nil
@@ -95,8 +97,10 @@ internal extension CMPConsentString {
                                             cmpVersion: cmpVersion,
                                             consentScreen: consentScreen,
                                             consentLanguage: consentLanguage,
+                                            editorVersion: editorVersion,
                                             vendorListVersion: vendorListVersion,
                                             maxVendorId: maxVendorId,
+                                            editorPurposes: editorPurposes,
                                             allowedPurposes: allowedPurposes,
                                             allowedVendors: allowedVendors)
                 }

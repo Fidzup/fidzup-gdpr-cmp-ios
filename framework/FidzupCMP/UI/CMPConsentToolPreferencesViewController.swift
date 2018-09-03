@@ -18,16 +18,20 @@ internal class CMPConsentToolPreferencesViewController: CMPConsentToolBaseViewCo
     
     // MARK: - UI Elements
     
-    static let PurposeSection = 0
-    static let VendorSection = 1
+    static let EditorPurposeSection = 0
+    static let PurposeSection = 1
+    static let VendorSection = 2
+    static let EditorPurposeCellIdentifier = "editorPurposeCell"
     static let PurposeCellIdentifier = "purposeCell"
     static let VendorsCellIdentifier = "vendorsCell"
 
+    static let EditorPurposeControllerSegue = "editorPurposeControllerSegue"
     static let PurposeControllerSegue = "purposeControllerSegue"
     static let VendorsControllerSegue = "vendorsControllerSegue"
     
+    var editorPurposeHeights: [CGFloat] = []
     var purposeHeights: [CGFloat] = []
-    
+
     // MARK: - Consent Tool Manager
     
     weak var consentToolManager: CMPConsentToolManager?
@@ -41,7 +45,11 @@ internal class CMPConsentToolPreferencesViewController: CMPConsentToolBaseViewCo
             purposesCount -= 1
             purposeHeights.append(44)
         }
-        
+        var editorPurposesCount = consentToolManager?.editorPurposesCount ?? 1
+        while editorPurposesCount > 0 {
+            editorPurposesCount -= 1
+            editorPurposeHeights.append(44)
+        }
         super.viewDidLoad()
         
         self.title = consentToolManager?.configuration.consentManagementScreenTitle
@@ -93,11 +101,13 @@ internal class CMPConsentToolPreferencesViewController: CMPConsentToolBaseViewCo
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == CMPConsentToolPreferencesViewController.PurposeSection {
+        if section == CMPConsentToolPreferencesViewController.EditorPurposeSection {
+            return consentToolManager?.editorPurposesCount ?? 1
+        } else if section == CMPConsentToolPreferencesViewController.PurposeSection {
             return consentToolManager?.purposesCount ?? 1
         } else {
             return 1
@@ -106,7 +116,22 @@ internal class CMPConsentToolPreferencesViewController: CMPConsentToolBaseViewCo
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        if indexPath.section == CMPConsentToolPreferencesViewController.PurposeSection {
+        if indexPath.section == CMPConsentToolPreferencesViewController.EditorPurposeSection {
+            let cell = tableView.dequeueReusableCell(withIdentifier: CMPConsentToolPreferencesViewController.EditorPurposeCellIdentifier) as! CMPPurposeTableViewCell
+            
+            if let purpose = consentToolManager?.editorPurposeAtIndex(indexPath.row) {
+                cell.nameLabel.text = purpose.name
+                cell.setPurposeActive(consent: consentToolManager!.isEditorPurposeAllowed(purpose))
+                cell.purposeDesc.text = purpose.purposeDescription
+                cell.purposeActiveSwitchCallback =  { (switch) -> Void in
+                    self.consentToolManager?.changeEditorPurposeConsent(purpose, consent: cell.purposeIsActive)
+                }
+            }
+            //cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator;
+            
+            return cell
+            
+        } else if indexPath.section == CMPConsentToolPreferencesViewController.PurposeSection {
             let cell = tableView.dequeueReusableCell(withIdentifier: CMPConsentToolPreferencesViewController.PurposeCellIdentifier) as! CMPPurposeTableViewCell
 
             if let purpose = consentToolManager?.purposeAtIndex(indexPath.row) {
@@ -137,6 +162,8 @@ internal class CMPConsentToolPreferencesViewController: CMPConsentToolBaseViewCo
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
+        case CMPConsentToolPreferencesViewController.EditorPurposeSection:
+            return consentToolManager?.configuration.consentManagementScreenEditorPurposesSectionHeaderText
         case CMPConsentToolPreferencesViewController.PurposeSection:
             return consentToolManager?.configuration.consentManagementScreenPurposesSectionHeaderText
         default:
@@ -167,6 +194,12 @@ internal class CMPConsentToolPreferencesViewController: CMPConsentToolBaseViewCo
             if let selectedRow = self.tableView.indexPathForSelectedRow?.row {
                 purposeController.purpose = self.consentToolManager?.purposeAtIndex(selectedRow)
             }
+        } else if segue.identifier == CMPConsentToolPreferencesViewController.EditorPurposeControllerSegue {
+            let editorPurposeController:CMPConsentToolPurposeViewController = segue.destination as! CMPConsentToolPurposeViewController
+            editorPurposeController.consentToolManager = self.consentToolManager
+            if let selectedRow = self.tableView.indexPathForSelectedRow?.row {
+                editorPurposeController.purpose = self.consentToolManager?.editorPurposeAtIndex(selectedRow)
+            }
         }
     }
  
@@ -189,7 +222,16 @@ internal class CMPConsentToolPreferencesViewController: CMPConsentToolBaseViewCo
     /////////
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
+        if indexPath.section == CMPConsentToolPreferencesViewController.EditorPurposeSection {
+            if let selectedIndexPaths = tableView.indexPathsForSelectedRows, selectedIndexPaths.contains(indexPath) {
+                if let cell = tableView.cellForRow(at: indexPath) as! CMPPurposeTableViewCell? {
+                    let height = cell.computeDescHeight()
+                    editorPurposeHeights[indexPath.row] = height // remember for later
+                    return height // Expanded height
+                }
+                return editorPurposeHeights[indexPath.row] // cell is outside the screen, i.e. unavailable : use cache
+            }
+        } else if indexPath.section == CMPConsentToolPreferencesViewController.PurposeSection {
             if let selectedIndexPaths = tableView.indexPathsForSelectedRows, selectedIndexPaths.contains(indexPath) {
                 if let cell = tableView.cellForRow(at: indexPath) as! CMPPurposeTableViewCell? {
                     let height = cell.computeDescHeight()

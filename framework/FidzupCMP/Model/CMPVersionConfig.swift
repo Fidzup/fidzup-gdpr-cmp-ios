@@ -49,6 +49,12 @@ public class CMPVersionConfig: NSObject {
     /// The number of bits used to encode the vendorListVersion field.
     internal let vendorListVersionBitSize: Int
     
+    /// The number of bits used to encode the editorVersion field.
+    internal let editorVersionBitSize: Int
+    
+    /// The number of bits used to encode the purposeEditor field.
+    internal let editorPurposesBitSize: Int
+
     /// The number of bits used to encode the purposeAllowed field.
     internal let allowedPurposesBitSize: Int
     
@@ -107,7 +113,9 @@ public class CMPVersionConfig: NSObject {
             self.cmpVersionBitSize = 12
             self.consentScreenBitSize = 6
             self.consentLanguageBitSize = 12
+            self.editorVersionBitSize = 12
             self.vendorListVersionBitSize = 12
+            self.editorPurposesBitSize = 24
             self.allowedPurposesBitSize = 24
             self.maxVendorIdBitSize = 16
             self.encodingTypeBitSize = 1

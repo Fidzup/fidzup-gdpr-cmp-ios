@@ -44,14 +44,22 @@ internal struct CMPConstants {
     /// IAB TCF compliant.
     ///
     /// Note: this key is not part of the IAB TCF specification.
-    struct AdvertisingConsentStatus {
+    struct FidzupCMPConsentKeys {
         static let PurposeId                        = 3 
-        static let Key                              = "SmartCMP_advertisingConsentStatus"
+        static let Key                              = "FidzupCMP_advertisingConsentStatus"
+        static let ConsentString                    = "GlobalConsent_ConsentString"
+        static let ParsedEditorPurposeConsent       = "GlobalConsent_ParsedEditorPurposeConsents"
     }
     
     // Miscellanous NSUSerDefaults keys
     struct MiscKeys {
         static let LastPresentationDate             = "SmartCMP_lastPresentationDate"
+    }
+    
+    /// Editor configuration
+    struct Editor {
+        static let DefaultEndPoint                  = "https://www.fidzup.com/editor/editor.json"
+        static let DefaultLocalizedEndPoint         = "https://www.fidzup.com/editor/editor-{language}.json"
     }
  
     /// Vendor list configuration.

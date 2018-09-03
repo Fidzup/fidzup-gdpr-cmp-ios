@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		56C411D5213968330026E95F /* CMPEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C411D4213968330026E95F /* CMPEditor.swift */; };
+		56C411D721396FBC0026E95F /* CMPEditor+JSONKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C411D621396FBC0026E95F /* CMPEditor+JSONKeys.swift */; };
+		56C411D9213D2F560026E95F /* CMPEditorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C411D8213D2F560026E95F /* CMPEditorManager.swift */; };
+		56C411DB213D2F6A0026E95F /* CMPEditorURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C411DA213D2F6A0026E95F /* CMPEditorURL.swift */; };
+		56C411DD213D32920026E95F /* CMPEditorManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C411DC213D32920026E95F /* CMPEditorManagerDelegate.swift */; };
 		7E25FC47208F511B00D05789 /* FidzupCMP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E25FC3D208F511B00D05789 /* FidzupCMP.framework */; };
 		7E25FC4E208F511B00D05789 /* FidzupCMP.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E25FC40208F511B00D05789 /* FidzupCMP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7E25FC68208F51AB00D05789 /* CMPConsentString+Encoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E25FC5A208F51AB00D05789 /* CMPConsentString+Encoding.swift */; };
@@ -79,6 +84,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		56C411D4213968330026E95F /* CMPEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPEditor.swift; sourceTree = "<group>"; };
+		56C411D621396FBC0026E95F /* CMPEditor+JSONKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMPEditor+JSONKeys.swift"; sourceTree = "<group>"; };
+		56C411D8213D2F560026E95F /* CMPEditorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPEditorManager.swift; sourceTree = "<group>"; };
+		56C411DA213D2F6A0026E95F /* CMPEditorURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPEditorURL.swift; sourceTree = "<group>"; };
+		56C411DC213D32920026E95F /* CMPEditorManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPEditorManagerDelegate.swift; sourceTree = "<group>"; };
 		7E25FC3D208F511B00D05789 /* FidzupCMP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FidzupCMP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E25FC40208F511B00D05789 /* FidzupCMP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FidzupCMP.h; sourceTree = "<group>"; };
 		7E25FC41208F511B00D05789 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -163,6 +173,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		56C411D3213967F90026E95F /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				56C411D4213968330026E95F /* CMPEditor.swift */,
+				56C411D621396FBC0026E95F /* CMPEditor+JSONKeys.swift */,
+				56C411D8213D2F560026E95F /* CMPEditorManager.swift */,
+				56C411DA213D2F6A0026E95F /* CMPEditorURL.swift */,
+				56C411DC213D32920026E95F /* CMPEditorManagerDelegate.swift */,
+			);
+			path = Editor;
+			sourceTree = "<group>";
+		};
 		7E25FC33208F511B00D05789 = {
 			isa = PBXGroup;
 			children = (
@@ -185,6 +207,7 @@
 		7E25FC3F208F511B00D05789 /* FidzupCMP */ = {
 			isa = PBXGroup;
 			children = (
+				56C411D3213967F90026E95F /* Editor */,
 				E966610C2090BAD100FCA161 /* CMPConstants.swift */,
 				E9644107208F8485007FD26A /* Manager */,
 				E9644104208F8401007FD26A /* UI */,
@@ -514,21 +537,26 @@
 				7E800B522090AEAC001FC83B /* CMPVendorList.swift in Sources */,
 				7E800B532090AEAC001FC83B /* CMPPurpose.swift in Sources */,
 				7E25FC70208F51AB00D05789 /* CMPVersionConfig.swift in Sources */,
+				56C411D9213D2F560026E95F /* CMPEditorManager.swift in Sources */,
 				7EE68E2220B56626007394CE /* CMPConsentToolBaseViewController.swift in Sources */,
 				7E800B542090AEAC001FC83B /* CMPFeature.swift in Sources */,
 				E966611B2092174F00FCA161 /* CMPConsentToolManagerDelegate.swift in Sources */,
 				E934FBDC2090850E00FE808C /* CMPConsentToolPurposeViewController.swift in Sources */,
 				8529CA45209717DE00759E68 /* CMPConsentToolVendorViewController.swift in Sources */,
 				E9644109208F8498007FD26A /* CMPConsentManager.swift in Sources */,
+				56C411D5213968330026E95F /* CMPEditor.swift in Sources */,
 				8504B78820921E020011BE81 /* CMPPreferenceTableViewCell.swift in Sources */,
 				7E2F053320A0721900C8C9E0 /* CMPVendorListURL.swift in Sources */,
 				7E800B552090AEAC001FC83B /* CMPVendor.swift in Sources */,
+				56C411DB213D2F6A0026E95F /* CMPEditorURL.swift in Sources */,
 				E934FBD8209084E500FE808C /* CMPConsentToolPreferencesViewController.swift in Sources */,
 				7E25FC6B208F51AB00D05789 /* CMPBitUtils.swift in Sources */,
 				E96661132090E0B200FCA161 /* CMPConsentManagerDelegate.swift in Sources */,
 				7E800B632090BA44001FC83B /* CMPURLSessionProvider.swift in Sources */,
 				7EEC034B20D811CF00E4620E /* CMPConsentManagerStateProvider.swift in Sources */,
+				56C411D721396FBC0026E95F /* CMPEditor+JSONKeys.swift in Sources */,
 				7EEC034920D8114900E4620E /* CMPConsentManagerState.swift in Sources */,
+				56C411DD213D32920026E95F /* CMPEditorManagerDelegate.swift in Sources */,
 				7E25FC6E208F51AB00D05789 /* CMPConsentString+Decoding.swift in Sources */,
 				E96661192092173F00FCA161 /* CMPConsentToolManager.swift in Sources */,
 				E966611D2093222200FCA161 /* CMPConsentToolConfiguration.swift in Sources */,

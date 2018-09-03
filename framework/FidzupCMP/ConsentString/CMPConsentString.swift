@@ -12,7 +12,7 @@
 import Foundation
 
 /**
- Representation of an IAB consent string.
+ Representation of an Global consent string (you can also grab a subset to get the IAB Consent String)
  */
 @objc
 public class CMPConsentString: NSObject, NSCopying {
@@ -61,6 +61,10 @@ public class CMPConsentString: NSObject, NSCopying {
     @objc
     public let consentLanguage: CMPLanguage
     
+    /// The version of the editor used in the most recent consent string update.
+    @objc
+    public let editorVersion: Int
+
     /// The version of the vendor list used in the most recent consent string update.
     @objc
     public let vendorListVersion: Int
@@ -69,6 +73,10 @@ public class CMPConsentString: NSObject, NSCopying {
     @objc
     public let maxVendorId: Int
     
+    /// An array of editor purposes id.
+    @objc
+    public let editorPurposes: IndexSet
+
     /// An array of allowed purposes id.
     @objc
     public let allowedPurposes: IndexSet
@@ -81,12 +89,22 @@ public class CMPConsentString: NSObject, NSCopying {
     @objc
     public let consentString: String
     
+    /// The base64 representation of the iab consent string.
+    @objc
+    public let iabConsentString: String
+    
+    /// The 'parsed editor purpose consents' string that can be stored in the GlobalConsent_ParsedEditorPurposeConsents key.
+    @objc
+    public var parsedEditorPurposeConsents: String {
+        return (1...versionConfig.editorPurposesBitSize).map { editorPurposes.contains($0) ? "1" : "0" }.joined()
+    }
+
     /// The 'parsed purpose consents' string that can be stored in the IABConsent_ParsedPurposeConsents key.
     @objc
     public var parsedPurposeConsents: String {
         return (1...versionConfig.allowedPurposesBitSize).map { allowedPurposes.contains($0) ? "1" : "0" }.joined()
     }
-    
+
     /// The 'parsed vendor consents' string that can be stored in the IABConsent_ParsedVendorConsents key.
     @objc
     public var parsedVendorConsents: String {
@@ -94,7 +112,7 @@ public class CMPConsentString: NSObject, NSCopying {
     }
     
     /**
-     Initialize a new instance of CMPConsentString from a vendor list.
+     Initialize a new instance of CMPConsentString from a vendor list and an editor.
      
      - Parameters:
          - version: The consent string version.
@@ -104,8 +122,10 @@ public class CMPConsentString: NSObject, NSCopying {
          - cmpVersion: The version of the Consent Manager Provider.
          - consentScreen: The screen number in the CMP where the consent was given.
          - consentLanguage: The language that the CMP asked for consent in.
+         - editorPurposes: An array of editor purposes id.
          - allowedPurposes: An array of allowed purposes id.
          - allowedVendors: An array of allowed vendors id.
+         - editor: The editor corresponding to the consent string.
          - vendorList: The vendor list corresponding to the consent string.
      - Returns: A new instance of CMPConsentString if version is valid, nil otherwise.
      */
@@ -117,8 +137,10 @@ public class CMPConsentString: NSObject, NSCopying {
                              cmpVersion: Int,
                              consentScreen: Int,
                              consentLanguage: CMPLanguage,
+                             editorPurposes: IndexSet,
                              allowedPurposes: IndexSet,
                              allowedVendors: IndexSet,
+                             editor: CMPEditor,
                              vendorList: CMPVendorList) {
         
         if let versionConfig = CMPVersionConfig(version: version) {
@@ -129,8 +151,10 @@ public class CMPConsentString: NSObject, NSCopying {
                       cmpVersion: cmpVersion,
                       consentScreen: consentScreen,
                       consentLanguage: consentLanguage,
+                      editorVersion: editor.editorVersion,
                       vendorListVersion: vendorList.vendorListVersion,
                       maxVendorId: vendorList.maxVendorId,
+                      editorPurposes: editorPurposes,
                       allowedPurposes: allowedPurposes,
                       allowedVendors: allowedVendors,
                       vendorListEncoding: .automatic)
@@ -141,7 +165,7 @@ public class CMPConsentString: NSObject, NSCopying {
     }
     
     /**
-     Initialize a new instance of CMPConsentString using a vendor list version and a max vendor id.
+     Initialize a new instance of CMPConsentString using a vendor list and an editor version,  and a max vendor id.
      
      - Parameters:
          - version: The consent string version.
@@ -152,7 +176,9 @@ public class CMPConsentString: NSObject, NSCopying {
          - consentScreen: The screen number in the CMP where the consent was given.
          - consentLanguage: The language that the CMP asked for consent in.
          - vendorListVersion: The version of the vendor list used in the most recent consent string update.
+         - editorVersion: The version of the editor used in the most recent consent string update.
          - maxVendorId: The maximum vendor id that can be found in the current vendor list.
+         - editorPurposes: An array of editor purposes id.
          - allowedPurposes: An array of allowed purposes id.
          - allowedVendors: An array of allowed vendors id.
      - Returns: A new instance of CMPConsentString if version is valid, nil otherwise.
@@ -165,8 +191,10 @@ public class CMPConsentString: NSObject, NSCopying {
                              cmpVersion: Int,
                              consentScreen: Int,
                              consentLanguage: CMPLanguage,
+                             editorVersion: Int,
                              vendorListVersion: Int,
                              maxVendorId: Int,
+                             editorPurposes: IndexSet,
                              allowedPurposes: IndexSet,
                              allowedVendors: IndexSet) {
         
@@ -178,8 +206,10 @@ public class CMPConsentString: NSObject, NSCopying {
                       cmpVersion: cmpVersion,
                       consentScreen: consentScreen,
                       consentLanguage: consentLanguage,
+                      editorVersion: editorVersion,
                       vendorListVersion: vendorListVersion,
                       maxVendorId: maxVendorId,
+                      editorPurposes: editorPurposes,
                       allowedPurposes: allowedPurposes,
                       allowedVendors: allowedVendors,
                       vendorListEncoding: .automatic)
@@ -190,7 +220,7 @@ public class CMPConsentString: NSObject, NSCopying {
     }
     
     /**
-     Initialize a new instance of CMPConsentString from a vendor list.
+     Initialize a new instance of CMPConsentString from a vendor list and an editor.
      
      - Parameters:
          - versionConfig: The consent string version configuration.
@@ -202,6 +232,7 @@ public class CMPConsentString: NSObject, NSCopying {
          - consentLanguage: The language that the CMP asked for consent in.
          - allowedPurposes: An array of allowed purposes id.
          - allowedVendors: An array of allowed vendors id.
+         - editor: The editor corresponding to the consent string.
          - vendorList: The vendor list corresponding to the consent string.
      */
     @objc
@@ -212,8 +243,10 @@ public class CMPConsentString: NSObject, NSCopying {
                             cmpVersion: Int,
                             consentScreen: Int,
                             consentLanguage: CMPLanguage,
+                            editorPurposes: IndexSet,
                             allowedPurposes: IndexSet,
                             allowedVendors: IndexSet,
+                            editor: CMPEditor,
                             vendorList: CMPVendorList) {
         
         self.init(versionConfig: versionConfig,
@@ -223,8 +256,10 @@ public class CMPConsentString: NSObject, NSCopying {
                   cmpVersion: cmpVersion,
                   consentScreen: consentScreen,
                   consentLanguage: consentLanguage,
+                  editorVersion: editor.editorVersion,
                   vendorListVersion: vendorList.vendorListVersion,
                   maxVendorId: vendorList.maxVendorId,
+                  editorPurposes: editorPurposes,
                   allowedPurposes: allowedPurposes,
                   allowedVendors: allowedVendors,
                   vendorListEncoding: .automatic)
@@ -255,8 +290,10 @@ public class CMPConsentString: NSObject, NSCopying {
                             cmpVersion: Int, // no
                             consentScreen: Int, // yes
                             consentLanguage: CMPLanguage, // yes
+                            editorVersion: Int, // editor
                             vendorListVersion: Int, // vendorList
                             maxVendorId: Int, // vendorList
+                            editorPurposes: IndexSet, // no
                             allowedPurposes: IndexSet, // no
                             allowedVendors: IndexSet) { // no
         
@@ -267,8 +304,105 @@ public class CMPConsentString: NSObject, NSCopying {
                   cmpVersion: cmpVersion,
                   consentScreen: consentScreen,
                   consentLanguage: consentLanguage,
+                  editorVersion: editorVersion,
                   vendorListVersion: vendorListVersion,
                   maxVendorId: maxVendorId,
+                  editorPurposes:editorPurposes,
+                  allowedPurposes: allowedPurposes,
+                  allowedVendors: allowedVendors,
+                  vendorListEncoding: .automatic)
+        
+    }
+    
+    /**
+     Initialize a new instance of CMPConsentString using a vendor list version and a max vendor id.
+     
+     - Parameters:
+     - versionConfig: The consent string version configuration.
+     - created: The date of the first consent string creation.
+     - lastUpdated: The date of the last consent string update.
+     - cmpId: The id of the last Consent Manager Provider that updated the consent string.
+     - cmpVersion: The version of the Consent Manager Provider.
+     - consentScreen: The screen number in the CMP where the consent was given.
+     - consentLanguage: The language that the CMP asked for consent in.
+     - vendorListVersion: The version of the vendor list used in the most recent consent string update.
+     - maxVendorId: The maximum vendor id that can be found in the current vendor list.
+     - allowedPurposes: An array of allowed purposes id.
+     - allowedVendors: An array of allowed vendors id.
+     */
+    @objc
+    public convenience init(versionConfig: CMPVersionConfig,
+        created: Date,
+        lastUpdated: Date,
+        cmpId: Int,
+        cmpVersion: Int,
+        consentScreen: Int,
+        consentLanguage: CMPLanguage,
+        editorVersion: Int,
+        editorPurposes: IndexSet,
+        allowedPurposes: IndexSet,
+        allowedVendors: IndexSet,
+        vendorList: CMPVendorList) {
+        
+        self.init(versionConfig: versionConfig,
+                  created: created,
+                  lastUpdated: lastUpdated,
+                  cmpId: cmpId,
+                  cmpVersion: cmpVersion,
+                  consentScreen: consentScreen,
+                  consentLanguage: consentLanguage,
+                  editorVersion: editorVersion,
+                  vendorListVersion: vendorList.vendorListVersion,
+                  maxVendorId: vendorList.maxVendorId,
+                  editorPurposes: editorPurposes,
+                  allowedPurposes: allowedPurposes,
+                  allowedVendors: allowedVendors,
+                  vendorListEncoding: .automatic)
+        
+    }
+    
+    /**
+     Initialize a new instance of CMPConsentString using a vendor list version and a max vendor id.
+     
+     - Parameters:
+     - versionConfig: The consent string version configuration.
+     - created: The date of the first consent string creation.
+     - lastUpdated: The date of the last consent string update.
+     - cmpId: The id of the last Consent Manager Provider that updated the consent string.
+     - cmpVersion: The version of the Consent Manager Provider.
+     - consentScreen: The screen number in the CMP where the consent was given.
+     - consentLanguage: The language that the CMP asked for consent in.
+     - vendorListVersion: The version of the vendor list used in the most recent consent string update.
+     - maxVendorId: The maximum vendor id that can be found in the current vendor list.
+     - allowedPurposes: An array of allowed purposes id.
+     - allowedVendors: An array of allowed vendors id.
+     */
+    @objc
+    public convenience init(versionConfig: CMPVersionConfig,
+                            created: Date,
+                            lastUpdated: Date,
+                            cmpId: Int,
+                            cmpVersion: Int,
+                            consentScreen: Int,
+                            consentLanguage: CMPLanguage,
+                            vendorListVersion: Int,
+                            maxVendorId: Int,
+                            editorPurposes: IndexSet,
+                            allowedPurposes: IndexSet,
+                            allowedVendors: IndexSet,
+                            editor: CMPEditor) {
+        
+        self.init(versionConfig: versionConfig,
+                  created: created,
+                  lastUpdated: lastUpdated,
+                  cmpId: cmpId,
+                  cmpVersion: cmpVersion,
+                  consentScreen: consentScreen,
+                  consentLanguage: consentLanguage,
+                  editorVersion: editor.editorVersion,
+                  vendorListVersion: vendorListVersion,
+                  maxVendorId: maxVendorId,
+                  editorPurposes: editorPurposes,
                   allowedPurposes: allowedPurposes,
                   allowedVendors: allowedVendors,
                   vendorListEncoding: .automatic)
@@ -299,8 +433,10 @@ public class CMPConsentString: NSObject, NSCopying {
                   cmpVersion: Int,
                   consentScreen: Int,
                   consentLanguage: CMPLanguage,
+                  editorVersion: Int,
                   vendorListVersion: Int,
                   maxVendorId: Int,
+                  editorPurposes: IndexSet,
                   allowedPurposes: IndexSet,
                   allowedVendors: IndexSet,
                   vendorListEncoding: ConsentEncoding) {
@@ -313,12 +449,29 @@ public class CMPConsentString: NSObject, NSCopying {
         self.cmpVersion = cmpVersion
         self.consentScreen = consentScreen
         self.consentLanguage = consentLanguage
+        self.editorVersion = editorVersion
         self.vendorListVersion = vendorListVersion
         self.maxVendorId = maxVendorId
+        self.editorPurposes = editorPurposes
         self.allowedPurposes = allowedPurposes
         self.allowedVendors = allowedVendors
         
         self.consentString = CMPBitsString(bitsString: CMPConsentString.encodeToBits(versionConfig: versionConfig,
+                                                                                     created: created,
+                                                                                     lastUpdated: lastUpdated,
+                                                                                     cmpId: cmpId,
+                                                                                     cmpVersion: cmpVersion,
+                                                                                     consentScreen: consentScreen,
+                                                                                     consentLanguage: consentLanguage,
+                                                                                     editorVersion: editorVersion,
+                                                                                     vendorListVersion: vendorListVersion,
+                                                                                     maxVendorId: maxVendorId,
+                                                                                     editorPurposes: editorPurposes,
+                                                                                     allowedPurposes: allowedPurposes,
+                                                                                     allowedVendors: allowedVendors,
+                                                                                     vendorListEncoding: vendorListEncoding))!.stringValue
+        
+        self.iabConsentString = CMPBitsString(bitsString: CMPConsentString.iabEncodeToBits(versionConfig: versionConfig,
                                                                                      created: created,
                                                                                      lastUpdated: lastUpdated,
                                                                                      cmpId: cmpId,
@@ -345,6 +498,17 @@ public class CMPConsentString: NSObject, NSCopying {
         return allowedPurposes.contains(purposeId)
     }
     
+    /**
+     Check if an editor purpose is allowed by the consent string.
+     
+     - Parameter purposeId: The purpose id which should be checked.
+     - Returns: true if the purpose is allowed, false otherwise.
+     */
+    @objc
+    public func isEditorPurposeAllowed(purposeId: Int) -> Bool {
+        return editorPurposes.contains(purposeId)
+    }
+
     /**
      Check if a vendor is allowed by the consent string.
      
@@ -387,8 +551,10 @@ public class CMPConsentString: NSObject, NSCopying {
             && lhs.cmpVersion == rhs.cmpVersion
             && lhs.consentScreen == rhs.consentScreen
             && lhs.consentLanguage == rhs.consentLanguage
+            && lhs.editorVersion == rhs.editorVersion
             && lhs.vendorListVersion == rhs.vendorListVersion
             && lhs.maxVendorId == rhs.maxVendorId
+            && lhs.editorPurposes == rhs.editorPurposes
             && lhs.allowedPurposes == rhs.allowedPurposes
             && lhs.allowedVendors == rhs.allowedVendors
     }

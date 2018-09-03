@@ -50,7 +50,11 @@ internal class CMPConsentToolViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func closeConsentButtonTapped(_ sender: Any) {
-        consentToolManager?.dismissConsentTool(save: false)
+        consentToolManager?.acceptAllPurposesAndCloseConsentTool()
+    }
+    
+    @IBAction func closeRefuseConsentButtonTapped(_ sender: Any) {
+        consentToolManager?.revokeAllPurposesAndCloseConsentTool()
     }
     
     // MARK: - Navigation

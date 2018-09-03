@@ -42,6 +42,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CMPConsentManagerDelegate
 
     // MARK: - CMPConsentManagerDelegate
     
+    func consentManagerRequestsEditorToShowConsentTool(_ consentManager: CMPConsentManager, forEditor editor: CMPEditor) {
+        NSLog("CMP Requested ConsentTool Display (Editor)");
+        
+        // ---------------------------------------------------------------------------------------------------------------------
+        
+        // You should display the consent tool UI, when user is ready…
+        if let controller = self.window?.rootViewController {
+            let _ = consentManager.showConsentTool(fromController: controller)
+        }
+        
+        // Since the vendor list is provided in parameter of this delegate method, you can also build your own UI to ask for
+        // user consent and simply save the resulting consent string in the relevant IAB keys (see the IAB specification for
+        // more details about this).
+        //
+        // To generate a valid IAB consent string easily, you can use the CMPConsentString class.
+        
+        // ---------------------------------------------------------------------------------------------------------------------
+        
+        // Note: depending on the situation, you might also want to allow or revoke all purposes consents without showing
+        // the consent tool. You can do it using the allowAllPurposes() and revokeAllPurposes() methods.
+        
+        // Allow all purposes consents without prompting the user if the user is not subject to GDPR (for instance, when he
+        // is not an European citizen).
+        // let _ = consentManager.allowAllPurposes()
+        
+        // Revoke all purposes consents without prompting the user, for instance if the user is under 16 years old (or younger
+        // depending on the country where the user is located).
+        // let _ = consentManager.revokeAllPurposes()
+    }
+    
     func consentManagerRequestsToShowConsentTool(_ consentManager: CMPConsentManager, forVendorList vendorList: CMPVendorList) {
         NSLog("CMP Requested ConsentTool Display");
         
@@ -77,18 +107,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CMPConsentManagerDelegate
     func generateConsentToolConfiguration() -> CMPConsentToolConfiguration {
         return CMPConsentToolConfiguration(logo: UIImage(named: "logo")!,
                                            homeScreenText: "[Place here your legal privacy notice for the consent tool, compliant with GDPR]",
-                                           homeScreenManageConsentButtonTitle: "MANAGE MY CHOICES",
-                                           homeScreenCloseButtonTitle: "GOT IT, THANKS!",
-                                           homeScreenCloseRefuseButtonTitle: "GOT IT, BUT NO THANKS!",
-                                           consentManagementScreenTitle: "Privacy preferences",
-                                           consentManagementCancelButtonTitle: "Cancel",
-                                           consentManagementSaveButtonTitle: "Save",
-                                           consentManagementScreenVendorsSectionHeaderText: "Vendors",
-                                           consentManagementScreenPurposesSectionHeaderText: "Purposes",
+                                           homeScreenManageConsentButtonTitle: NSLocalizedString("Manage my choices", comment: ""),
+                                           homeScreenCloseButtonTitle: NSLocalizedString("GOT IT, THANKS!", comment: ""),
+                                           homeScreenCloseRefuseButtonTitle: NSLocalizedString("GOT IT, BUT NO THANKS!", comment: ""),
+                                           consentManagementScreenTitle: NSLocalizedString("Privacy preferences", comment: ""),
+                                           consentManagementCancelButtonTitle: NSLocalizedString("Cancel", comment: ""),
+                                           consentManagementSaveButtonTitle: NSLocalizedString("Save", comment: ""),
+                                           consentManagementScreenVendorsSectionHeaderText: NSLocalizedString("Vendors", comment: ""),
+                                           consentManagementScreenPurposesSectionHeaderText: NSLocalizedString("Purposes", comment: ""),
+                                           consentManagementScreenEditorPurposesSectionHeaderText: NSLocalizedString("Editor", comment: ""),
                                            consentManagementVendorsControllerAccessText: "Authorized vendors",
                                            consentManagementActivatedText: "yes",
                                            consentManagementDeactivatedText: "no",
-                                           consentManagementPurposeDetailTitle: "Purpose",
+                                           consentManagementPurposeDetailTitle: NSLocalizedString("Purpose", comment: ""),
                                            consentManagementPurposeDetailAllowText: "Allowed",
                                            consentManagementVendorDetailViewPolicyText: "View privacy policy",
                                            consentManagementVendorDetailPurposesText: "Required purposes",

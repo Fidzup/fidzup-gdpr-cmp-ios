@@ -32,4 +32,19 @@ public protocol CMPConsentManagerDelegate: class {
     @objc
     func consentManagerRequestsToShowConsentTool(_ consentManager: CMPConsentManager, forVendorList vendorList: CMPVendorList)
     
+    /**
+     Called when the consent manager found a reason to display the Consent Tool UI. The publisher should display
+     the consent tool as soon as possible.
+     
+     Note: this delegate will never be called if 'showConsentToolWhenLimitedAdTracking=false' is used during the CMPConsentManager
+     configuration and if the user has enabled 'Limited Ad Tracking' in its iOS preferences. In this case, a consent string without
+     any consent will be automatically generated and stored.
+     
+     - Parameters:
+     - consentManager: The consent manager instance.
+     - editor: The editor you should ask consent for.
+     */
+    @objc
+    func consentManagerRequestsEditorToShowConsentTool(_ consentManager: CMPConsentManager, forEditor editor: CMPEditor)
+    
 }

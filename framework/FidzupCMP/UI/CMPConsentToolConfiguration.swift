@@ -71,6 +71,11 @@ public class CMPConsentToolConfiguration: NSObject {
     /// Eg: "Purposes"
     let consentManagementScreenPurposesSectionHeaderText: String
     
+    /// Text of the editor purposes section header.
+    ///
+    /// Eg: "Editor"
+    let consentManagementScreenEditorPurposesSectionHeaderText: String
+
     /// Text to access the full vendor list.
     ///
     /// Eg: "Authorized vendors"
@@ -158,6 +163,7 @@ public class CMPConsentToolConfiguration: NSObject {
                 consentManagementSaveButtonTitle: String,
                 consentManagementScreenVendorsSectionHeaderText: String,
                 consentManagementScreenPurposesSectionHeaderText: String,
+                consentManagementScreenEditorPurposesSectionHeaderText: String,
                 consentManagementVendorsControllerAccessText: String,
                 consentManagementActivatedText: String,
                 consentManagementDeactivatedText: String,
@@ -178,6 +184,7 @@ public class CMPConsentToolConfiguration: NSObject {
         self.consentManagementSaveButtonTitle = consentManagementSaveButtonTitle
         self.consentManagementScreenVendorsSectionHeaderText = consentManagementScreenVendorsSectionHeaderText
         self.consentManagementScreenPurposesSectionHeaderText = consentManagementScreenPurposesSectionHeaderText
+        self.consentManagementScreenEditorPurposesSectionHeaderText = consentManagementScreenEditorPurposesSectionHeaderText
         self.consentManagementVendorsControllerAccessText = consentManagementVendorsControllerAccessText
         self.consentManagementActivatedText = consentManagementActivatedText
         self.consentManagementDeactivatedText = consentManagementDeactivatedText

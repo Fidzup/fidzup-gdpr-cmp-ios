@@ -74,9 +74,17 @@ internal class CMPConsentManagerState {
      - Parameter string: The consent string to be saved.
      */
     public func saveConsentString(_ string: String) {
-        provider.saveString(string: string, key: CMPConstants.IABConsentKeys.ConsentString)
+        provider.saveString(string: string, key: CMPConstants.FidzupCMPConsentKeys.ConsentString)
     }
     
+    /**
+     Save the iab consent string.
+     
+     - Parameter string: The iab consent string to be saved.
+     */
+    public func saveIABConsentString(_ string: String) {
+        provider.saveString(string: string, key: CMPConstants.IABConsentKeys.ConsentString)
+    }
     /**
      Return the current consent string.
      
@@ -101,8 +109,8 @@ internal class CMPConsentManagerState {
      - Parameters consentString: The consent string from which the advertising consent status will be retrieved.
      */
     public func saveAdvertisingConsentStatus(forConsentString consentString: CMPConsentString) {
-        let advertisingConsentStatusString = consentString.isPurposeAllowed(purposeId: CMPConstants.AdvertisingConsentStatus.PurposeId) ? "1" : "0"
-        provider.saveString(string: advertisingConsentStatusString, key: CMPConstants.AdvertisingConsentStatus.Key)
+        let advertisingConsentStatusString = consentString.isPurposeAllowed(purposeId: CMPConstants.FidzupCMPConsentKeys.PurposeId) ? "1" : "0"
+        provider.saveString(string: advertisingConsentStatusString, key: CMPConstants.FidzupCMPConsentKeys.Key)
     }
     
     /**

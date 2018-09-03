@@ -30,9 +30,12 @@ internal class CMPConsentToolManager {
     /// Generated consent string.
     private var generatedConsentString: CMPConsentString 
     
+    /// Editor.
+    private let editor: CMPEditor
+    
     /// Vendor list.
     private let vendorList: CMPVendorList
-    
+
     /// Current view controller.
     private var presentingViewController: UIViewController?
     
@@ -48,17 +51,20 @@ internal class CMPConsentToolManager {
         - delegate: An instance of CMPConsentToolManagerDelegate.
         - language: The language in which the consent will be given.
         - consentString: The previous consent string if any.
+        - editor: The editor.
         - vendorList: The vendor list.
         - configuration: The consent tool configuration.
      */
     public init(delegate: CMPConsentToolManagerDelegate,
                 language: CMPLanguage,
                 consentString: CMPConsentString?,
+                editor: CMPEditor,
                 vendorList: CMPVendorList,
                 configuration: CMPConsentToolConfiguration) {
         
         self.delegate = delegate
         self.language = language
+        self.editor = editor
         self.vendorList = vendorList
         self.configuration = configuration
         
@@ -66,7 +72,7 @@ internal class CMPConsentToolManager {
             self.initialConsentString = consentString
             self.generatedConsentString = consentString.copy() as! CMPConsentString
         } else {
-            self.initialConsentString = CMPConsentString.consentStringWithFullConsent(consentScreen: 1, consentLanguage: self.language, vendorList: self.vendorList) 
+            self.initialConsentString = CMPConsentString.consentStringWithFullConsent(consentScreen: 1, consentLanguage: self.language, editor: self.editor, vendorList: self.vendorList)
             self.generatedConsentString = self.initialConsentString.copy() as! CMPConsentString
         }
     }
@@ -105,6 +111,40 @@ internal class CMPConsentToolManager {
         
         viewController.dismiss(animated: true) {
             self.delegate?.consentToolManager(self, didFinishWithConsentString: save ? self.generatedConsentString : self.initialConsentString)
+        }
+    }
+    
+    /**
+     Dismiss the consent tool after accepting all purposes.
+     */
+    func acceptAllPurposesAndCloseConsentTool() {
+        guard let viewController = self.presentingViewController else {
+            return;
+        }
+        self.generatedConsentString = CMPConsentString.consentStringWithFullConsent(consentScreen: self.initialConsentString.consentScreen,
+                                                                                    consentLanguage: self.initialConsentString.consentLanguage,
+                                                                                    editor: editor,
+                                                                                    vendorList: vendorList)
+    
+        viewController.dismiss(animated: true) {
+            self.delegate?.consentToolManager(self, didFinishWithConsentString: self.generatedConsentString)
+        }
+    }
+    
+    /**
+     Dismiss the consent tool after revoking all purposes.
+     */
+    func revokeAllPurposesAndCloseConsentTool() {
+        guard let viewController = self.presentingViewController else {
+            return;
+        }
+    
+        self.generatedConsentString = CMPConsentString.consentStringWithNoConsent(consentScreen: self.initialConsentString.consentScreen,
+                                                                                    consentLanguage: self.initialConsentString.consentLanguage,
+                                                                                    editor: editor,
+                                                                                    vendorList: vendorList)
+        viewController.dismiss(animated: true) {
+            self.delegate?.consentToolManager(self, didFinishWithConsentString: self.generatedConsentString)
         }
     }
     
@@ -154,6 +194,11 @@ internal class CMPConsentToolManager {
         return self.vendorList.purposes.count
     }
     
+    /// The number of editor purposes.
+    var editorPurposesCount: Int {
+        return self.editor.purposes.count
+    }
+
     /**
      Return the purpose by index.
      
@@ -167,7 +212,21 @@ internal class CMPConsentToolManager {
         
         return self.vendorList.purposes[index]
     }
-    
+
+    /**
+     Return the editor purpose by index.
+     
+     - Parameter index: The index.
+     - Returns: The purpose if any, nil otherwise.
+     */
+    func editorPurposeAtIndex(_ index: Int) -> CMPPurpose? {
+        guard index < editorPurposesCount else {
+            return nil
+        }
+        
+        return self.editor.purposes[index]
+    }
+
     /**
      Check if a purpose is allowed.
      
@@ -177,7 +236,17 @@ internal class CMPConsentToolManager {
     func isPurposeAllowed(_ purpose: CMPPurpose) -> Bool {
         return generatedConsentString.isPurposeAllowed(purposeId: purpose.id)
     }
-    
+
+    /**
+     Check if an editor purpose is allowed.
+     
+     - Parameter purpose: The purpose to be checked.
+     - Returns: true if the purpose is allowed, false otherwise.
+     */
+    func isEditorPurposeAllowed(_ purpose: CMPPurpose) -> Bool {
+        return generatedConsentString.isEditorPurposeAllowed(purposeId: purpose.id)
+    }
+
     // MARK: - Manipulate purpose and vendors
     
     /**
@@ -214,6 +283,40 @@ internal class CMPConsentToolManager {
         }
     }    
     
+    /**
+     Change the editor purpose consent by index.
+     
+     - Parameters:
+     - index: The index of the purpose to be changed.
+     - consent: true if consent must be added for the purpose, false to remove the consent.
+     */
+    func changeEditorPurposeConsent(index: Int, consent: Bool) {
+        guard let purpose = editorPurposeAtIndex(index) else {
+            return
+        }
+        
+        if consent {
+            addConsentForEditorPurpose(id: purpose.id)
+        } else {
+            removeConsentForEditorPurpose(id: purpose.id)
+        }
+    }
+    
+    /**
+     Change the editor purpose consent.
+     
+     - Parameters:
+     - purpose: The purpose to be changed.
+     - consent: true if consent must be added for the purpose, false to remove the consent.
+     */
+    func changeEditorPurposeConsent(_ purpose: CMPPurpose, consent: Bool) {
+        if consent {
+            addConsentForEditorPurpose(id: purpose.id)
+        } else {
+            removeConsentForEditorPurpose(id: purpose.id)
+        }
+    }
+
     /**
      Change the vendor consent.
      
@@ -258,6 +361,35 @@ internal class CMPConsentToolManager {
         
     }
     
+    /**
+     Give consent for an editor purpose by id.
+     
+     - Parameter id: The purpose id.
+     */
+    func addConsentForEditorPurpose(id: Int) {
+        guard !generatedConsentString.isEditorPurposeAllowed(purposeId: id) else {
+            return
+        }
+        
+        // Generate new consent string
+        self.generatedConsentString = CMPConsentString.consentStringByAddingConsent(forEditorPurposeId: id, consentString: self.generatedConsentString, consentLanguage: language, lastUpdated: Date())
+    }
+    
+    /**
+     Remove consent for an editor purpose by id.
+     
+     - Parameter id: The purpose id.
+     */
+    func removeConsentForEditorPurpose(id: Int) {
+        guard generatedConsentString.isEditorPurposeAllowed(purposeId: id) else {
+            return
+        }
+        
+        // Generate new consent string
+        self.generatedConsentString = CMPConsentString.consentStringByRemovingConsent(forEditorPurposeId: id, consentString: self.generatedConsentString, consentLanguage: language, lastUpdated: Date())
+        
+    }
+
     /**
      Give consent for a vendor by id.
      

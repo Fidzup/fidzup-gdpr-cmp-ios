@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name                  = "FidzupCMP"
-  spec.version               = "5"
+  spec.version               = "6"
   spec.author                = "Fidzup"
   spec.license               = { :type => "Creative Commons Legal Code, Attribution 3.0 Unported" }
   spec.homepage              = "https://github.com/Fidzup/fidzup-gdpr-cmp-ios"

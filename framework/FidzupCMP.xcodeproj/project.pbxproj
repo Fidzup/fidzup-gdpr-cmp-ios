@@ -55,6 +55,8 @@
 		7EEC034920D8114900E4620E /* CMPConsentManagerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEC034820D8114900E4620E /* CMPConsentManagerState.swift */; };
 		7EEC034B20D811CF00E4620E /* CMPConsentManagerStateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEC034A20D811CF00E4620E /* CMPConsentManagerStateProvider.swift */; };
 		831E155F2136D2BC009F5703 /* CMPPurposeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831E155E2136D2BB009F5703 /* CMPPurposeTableViewCell.swift */; };
+		83F2DD14213DAC8D00876B4E /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 83F2DD12213DAC8D00876B4E /* plus.png */; };
+		83F2DD15213DAC8D00876B4E /* minus.png in Resources */ = {isa = PBXBuildFile; fileRef = 83F2DD13213DAC8D00876B4E /* minus.png */; };
 		8504B78820921E020011BE81 /* CMPPreferenceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8504B78520921E020011BE81 /* CMPPreferenceTableViewCell.swift */; };
 		8504B78B209237070011BE81 /* CMPVendorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8504B78A209237070011BE81 /* CMPVendorTableViewCell.swift */; };
 		8529CA45209717DE00759E68 /* CMPConsentToolVendorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8529CA44209717DE00759E68 /* CMPConsentToolVendorViewController.swift */; };
@@ -135,6 +137,8 @@
 		7EEC034820D8114900E4620E /* CMPConsentManagerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPConsentManagerState.swift; sourceTree = "<group>"; };
 		7EEC034A20D811CF00E4620E /* CMPConsentManagerStateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPConsentManagerStateProvider.swift; sourceTree = "<group>"; };
 		831E155E2136D2BB009F5703 /* CMPPurposeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMPPurposeTableViewCell.swift; sourceTree = "<group>"; };
+		83F2DD12213DAC8D00876B4E /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
+		83F2DD13213DAC8D00876B4E /* minus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minus.png; sourceTree = "<group>"; };
 		8504B78520921E020011BE81 /* CMPPreferenceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMPPreferenceTableViewCell.swift; sourceTree = "<group>"; };
 		8504B78A209237070011BE81 /* CMPVendorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPVendorTableViewCell.swift; sourceTree = "<group>"; };
 		8529CA44209717DE00759E68 /* CMPConsentToolVendorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPConsentToolVendorViewController.swift; sourceTree = "<group>"; };
@@ -417,6 +421,8 @@
 		E96661172092170A00FCA161 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				83F2DD13213DAC8D00876B4E /* minus.png */,
+				83F2DD12213DAC8D00876B4E /* plus.png */,
 				85899A692092006100AC1B8C /* CMPConsentTool.storyboard */,
 			);
 			path = Resources;
@@ -514,6 +520,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				85899A6A2092006100AC1B8C /* CMPConsentTool.storyboard in Resources */,
+				83F2DD14213DAC8D00876B4E /* plus.png in Resources */,
+				83F2DD15213DAC8D00876B4E /* minus.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

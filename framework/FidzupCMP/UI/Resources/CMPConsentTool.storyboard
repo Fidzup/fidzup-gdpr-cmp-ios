@@ -113,61 +113,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="editorPurposeCell" id="hiQ-eu-jxA" userLabel="editorPurposeCell" customClass="CMPPurposeTableViewCell" customModule="FidzupCMP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hiQ-eu-jxA" id="3Fv-g9-d4k">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Purpose name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="4VO-NO-ZXz">
-                                            <rect key="frame" x="20" y="12" width="111" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="STv-4w-b0q">
-                                            <rect key="frame" x="255" y="6" width="51" height="31"/>
-                                            <connections>
-                                                <action selector="purposeSwitchValueChanged:" destination="hiQ-eu-jxA" eventType="valueChanged" id="lPl-hJ-Pax"/>
-                                            </connections>
-                                        </switch>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esc-JE-eDh">
-                                            <rect key="frame" x="0.0" y="44" width="320" height="216.5"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" priority="500" constant="44" id="eko-R7-4q4"/>
-                                            </constraints>
-                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                        </textView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="STv-4w-b0q" firstAttribute="top" secondItem="3Fv-g9-d4k" secondAttribute="top" constant="6" id="1Hz-zx-cAE"/>
-                                        <constraint firstItem="esc-JE-eDh" firstAttribute="top" secondItem="3Fv-g9-d4k" secondAttribute="top" constant="44" id="Ea0-xM-hIf"/>
-                                        <constraint firstItem="4VO-NO-ZXz" firstAttribute="top" secondItem="3Fv-g9-d4k" secondAttribute="top" constant="11.5" id="HhX-UL-Bno"/>
-                                        <constraint firstItem="4VO-NO-ZXz" firstAttribute="leading" secondItem="3Fv-g9-d4k" secondAttribute="leading" constant="20" symbolic="YES" id="Pok-VX-1o3"/>
-                                        <constraint firstItem="esc-JE-eDh" firstAttribute="width" secondItem="3Fv-g9-d4k" secondAttribute="width" id="TcP-EL-Zrt"/>
-                                        <constraint firstItem="esc-JE-eDh" firstAttribute="leading" secondItem="3Fv-g9-d4k" secondAttribute="leading" id="W6a-IG-9Tf"/>
-                                        <constraint firstAttribute="trailing" secondItem="STv-4w-b0q" secondAttribute="trailing" constant="16" id="wkd-rz-824"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="nameLabel" destination="4VO-NO-ZXz" id="b6T-b9-eh2"/>
-                                    <outlet property="purposeDesc" destination="esc-JE-eDh" id="hxj-9k-RKd"/>
-                                    <outlet property="purposeSwitch" destination="STv-4w-b0q" id="3Tc-Up-qKa"/>
-                                </connections>
-                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="purposeCell" id="4gy-Nr-BvP" userLabel="purposeCell" customClass="CMPPurposeTableViewCell" customModule="FidzupCMP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4gy-Nr-BvP" id="SKA-xz-6nB">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Purpose name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="eGo-HK-RPc">
-                                            <rect key="frame" x="20" y="12" width="111" height="21"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus.png" translatesAutoresizingMaskIntoConstraints="NO" id="tdq-Pf-tNk">
+                                            <rect key="frame" x="16" y="16" width="12" height="12"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="12" id="4fw-RM-3Cp"/>
+                                                <constraint firstAttribute="height" constant="12" id="pkF-55-e1f"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Purpose name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eGo-HK-RPc">
+                                            <rect key="frame" x="36" y="12" width="211" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -191,22 +152,26 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="7q4-0v-E0r" firstAttribute="width" secondItem="SKA-xz-6nB" secondAttribute="width" id="077-g0-mKY"/>
+                                        <constraint firstItem="tdq-Pf-tNk" firstAttribute="top" secondItem="SKA-xz-6nB" secondAttribute="top" constant="16" id="D9W-jd-dY1"/>
                                         <constraint firstItem="7q4-0v-E0r" firstAttribute="leading" secondItem="SKA-xz-6nB" secondAttribute="leading" id="G4J-RB-wJs"/>
                                         <constraint firstItem="2TJ-Xg-co9" firstAttribute="top" secondItem="SKA-xz-6nB" secondAttribute="top" constant="6" id="JTL-Bk-r5d"/>
                                         <constraint firstItem="eGo-HK-RPc" firstAttribute="top" secondItem="SKA-xz-6nB" secondAttribute="top" constant="11.5" id="Sxm-4H-vto"/>
+                                        <constraint firstItem="tdq-Pf-tNk" firstAttribute="leading" secondItem="SKA-xz-6nB" secondAttribute="leading" constant="16" id="VK2-H2-F6j"/>
                                         <constraint firstItem="7q4-0v-E0r" firstAttribute="top" secondItem="SKA-xz-6nB" secondAttribute="top" constant="44" id="WcI-HH-EEu"/>
                                         <constraint firstAttribute="trailing" secondItem="2TJ-Xg-co9" secondAttribute="trailing" constant="16" id="oyI-q9-wJL"/>
-                                        <constraint firstItem="eGo-HK-RPc" firstAttribute="leading" secondItem="SKA-xz-6nB" secondAttribute="leading" constant="20" symbolic="YES" id="wnE-Wc-dtb"/>
+                                        <constraint firstItem="eGo-HK-RPc" firstAttribute="width" secondItem="SKA-xz-6nB" secondAttribute="width" constant="-110" id="p1d-ou-DkB"/>
+                                        <constraint firstItem="eGo-HK-RPc" firstAttribute="leading" secondItem="SKA-xz-6nB" secondAttribute="leading" constant="36" id="wnE-Wc-dtb"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="expandIcon" destination="tdq-Pf-tNk" id="OXs-Cp-JmK"/>
                                     <outlet property="nameLabel" destination="eGo-HK-RPc" id="uLN-FP-Ydw"/>
                                     <outlet property="purposeDesc" destination="7q4-0v-E0r" id="v52-by-99S"/>
                                     <outlet property="purposeSwitch" destination="2TJ-Xg-co9" id="bVq-28-he0"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="vendorsCell" id="2mE-iG-Dil" userLabel="vendorsCell" customClass="CMPPreferenceTableViewCell" customModule="FidzupCMP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="116" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="72" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2mE-iG-Dil" id="S28-IE-SiP">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -362,6 +327,9 @@
             <point key="canvasLocation" x="-1529" y="-28"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="plus.png" width="24" height="24"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="UfH-E1-ehC"/>
     </inferredMetricsTieBreakers>

@@ -11,14 +11,18 @@ internal class CMPPurposeTableViewCell: UITableViewCell {
     
     var purposeActiveSwitchCallback: ((_ switch: UISwitch) -> Void)?
     var purposeIsActive: Bool =  true
-    var fullHeight: Int = 0
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var purposeSwitch: UISwitch!
     @IBOutlet weak var purposeDesc: UITextView!
+    @IBOutlet weak var expandIcon: UIImageView!
     
     func computeDescHeight() -> CGFloat {
         return self.purposeDesc.frame.size.height + self.purposeDesc.frame.origin.y
+    }
+    
+    func expanded(exp: Bool) {
+        self.expandIcon.image = UIImage(named: (exp ? "minus.png" : "plus.png"), in: Bundle(for: type(of: self)), compatibleWith: nil)
     }
     
     func setPurposeActive(consent: Bool) {

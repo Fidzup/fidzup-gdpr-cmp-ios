@@ -117,7 +117,14 @@ internal class CMPConsentToolPreferencesViewController: CMPConsentToolBaseViewCo
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         if indexPath.section == CMPConsentToolPreferencesViewController.EditorPurposeSection {
-            let cell = tableView.dequeueReusableCell(withIdentifier: CMPConsentToolPreferencesViewController.EditorPurposeCellIdentifier) as! CMPPurposeTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: CMPConsentToolPreferencesViewController.PurposeCellIdentifier) as! CMPPurposeTableViewCell
+            
+            if let selectedIndexPaths = tableView.indexPathsForSelectedRows {
+                cell.expanded(exp: selectedIndexPaths.contains(indexPath))
+            }
+            else {
+                cell.expanded(exp: false)
+            }
             
             if let purpose = consentToolManager?.editorPurposeAtIndex(indexPath.row) {
                 cell.nameLabel.text = purpose.name
@@ -133,6 +140,13 @@ internal class CMPConsentToolPreferencesViewController: CMPConsentToolBaseViewCo
             
         } else if indexPath.section == CMPConsentToolPreferencesViewController.PurposeSection {
             let cell = tableView.dequeueReusableCell(withIdentifier: CMPConsentToolPreferencesViewController.PurposeCellIdentifier) as! CMPPurposeTableViewCell
+            
+            if let selectedIndexPaths = tableView.indexPathsForSelectedRows {
+                cell.expanded(exp: selectedIndexPaths.contains(indexPath))
+            }
+            else {
+                cell.expanded(exp: false)
+            }
 
             if let purpose = consentToolManager?.purposeAtIndex(indexPath.row) {
                 cell.nameLabel.text = purpose.name
@@ -207,10 +221,26 @@ internal class CMPConsentToolPreferencesViewController: CMPConsentToolBaseViewCo
     ////////
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.section == CMPConsentToolPreferencesViewController.EditorPurposeSection ||
+            indexPath.section == CMPConsentToolPreferencesViewController.PurposeSection {
+            if let cell = tableView.cellForRow(at: indexPath) as! CMPPurposeTableViewCell? {
+                cell.expanded(exp: true)
+            }
+        }
+        
         updateTableView()
     }
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        
+        if indexPath.section == CMPConsentToolPreferencesViewController.EditorPurposeSection ||
+            indexPath.section == CMPConsentToolPreferencesViewController.PurposeSection {
+            if let cell = tableView.cellForRow(at: indexPath) as! CMPPurposeTableViewCell? {
+                cell.expanded(exp: false)
+            }
+        }
+        
         updateTableView()
     }
     

@@ -96,7 +96,7 @@ The current version of _FidzupCMP_ has the following limitations:
 
 * The consent tool UI is not customizable (except for static texts). You can however build your own UI and display it in the ```consentManagerRequestsToShowConsentTool``` delegate method using the ```vendorList``` parameter.
 * _AppleTV_ apps are not supported.
-* The IAB specification allows publishers to display only a subset of purposes & vendors using a _pubvendors.json_ file, stored on their own infrastructure. _SmartCMP_ does not implement this feature at this time.
+* The IAB specification allows publishers to display only a subset of purposes & vendors using a _pubvendors.json_ file, stored on their own infrastructure. _FidzupCMP_ does not implement this feature at this time.
 * No static texts are provided by default (you must provide them to ```CMPConsentToolConfiguration```). The ```homeScreenText``` should be validated by your legal department.
 * _FidzupCMP_ does not have any logic to know if GDPR applies or not based on user's location / age at this time. For the moment it is the publisher's responsibility to determine whether or not GDPR applies and if the consent tool UI should be shown to the user, as well as requesting permission to fetch location or other including / excluding criteria.
 

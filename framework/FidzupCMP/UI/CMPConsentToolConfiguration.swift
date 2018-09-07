@@ -123,8 +123,17 @@ public class CMPConsentToolConfiguration: NSObject {
     /// Text displayed as the title of the list of the vendor's features.
     ///
     /// Eg: "Features"
-    let consentManagementVendorDetailFeaturesText: String
+    var consentManagementVendorDetailFeaturesText: String
     
+    var consentManagementDefaultEditorJsonURL: String
+    
+    var consentManagementLocalizedEditorJsonURL: String
+    
+    var isEditorConfigured: Bool
+    
+    var isEditorConfiguredWithURL: Bool
+    
+    var consentManagementEditorJson: String
     
     // MARK: - Initialization
     
@@ -195,6 +204,26 @@ public class CMPConsentToolConfiguration: NSObject {
         self.consentManagementVendorDetailLegitimatePurposesText = consentManagementVendorDetailLegitimatePurposesText
         self.consentManagementVendorDetailFeaturesText = consentManagementVendorDetailFeaturesText
         
+        self.consentManagementDefaultEditorJsonURL   = ""
+        self.consentManagementLocalizedEditorJsonURL = ""
+        self.isEditorConfiguredWithURL               = true
+        self.isEditorConfigured                      = false
+        self.consentManagementEditorJson             = ""
     }
     
+    @objc
+    public func setEditorConfiguration(consentManagementDefaultEditorJsonURL: String,
+                                       consentManagementLocalizedEditorJsonURL: String) {
+        self.isEditorConfigured                      = true;
+        self.isEditorConfiguredWithURL               = true;
+        self.consentManagementDefaultEditorJsonURL   = consentManagementDefaultEditorJsonURL;
+        self.consentManagementLocalizedEditorJsonURL = consentManagementLocalizedEditorJsonURL;
+    }
+    
+    @objc
+    public func setEditorConfiguration(consentManagementEditorJson: String) {
+        self.isEditorConfigured          = true;
+        self.isEditorConfiguredWithURL   = false;
+        self.consentManagementEditorJson = consentManagementEditorJson;
+    }
 }

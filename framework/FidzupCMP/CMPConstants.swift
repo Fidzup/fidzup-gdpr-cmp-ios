@@ -20,11 +20,11 @@ internal struct CMPConstants {
     struct CMPInfos {
         static let VERSION                          = 3
         
-        // WARNING: '1024' IS THE OFFICIAL CMP ID FOR FidzupCMP.
+        // WARNING: '190' IS THE OFFICIAL CMP ID FOR FidzupCMP.
         // You can use this ID as long as you don't change the source code of this project.
-        // If you don't use it exactly as distributed in the official Smart AdServer repository,
+        // If you don't use it exactly as distributed in the official Fidzup repository,
         // you must get your own CMP ID by registering here: https://register.consensu.org/CMP
-        static let ID                               = 1024
+        static let ID                               = 190
     }
     
     /// IAB Keys for NSUserDefaults storage.
@@ -53,7 +53,7 @@ internal struct CMPConstants {
     
     // Miscellanous NSUSerDefaults keys
     struct MiscKeys {
-        static let LastPresentationDate             = "SmartCMP_lastPresentationDate"
+        static let LastPresentationDate             = "FIdzupCMP_lastPresentationDate"
     }
     
     /// Editor configuration

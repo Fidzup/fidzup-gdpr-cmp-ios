@@ -9,7 +9,10 @@ The purposes & vendors retrieval as well as the consent storage is compliant wit
 Retrieving user consent is mandatory in EU starting May 25th due to the _General Data Protection Regulation (GDPR)_, and the refuse button is mandatory to comply with the regulation.
 
 <p align="center">
-  <img src="images/ios-consent-tool.gif" alt="Consent tool on iOS"/>
+  <img src="images/ios_consent_popup.png" alt="Consent tool Popup on iOS" width="40%" height="40%"/>
+  <img src="images/ios_consent_manage_choice_1.png" alt="Consent tool Popup on iOS" width="40%" height="40%"/>
+  <img src="images/ios_consent_manage_choice_2.png" alt="Consent tool Popup on iOS" width="40%" height="40%"/>
+  <img src="images/ios_consent_manage_vendors.png" alt="Consent tool Vendors List on iOS" width="40%" height="40%"/>
 </p>
 
 ## Usage
@@ -107,6 +110,6 @@ Check the [LICENSE file](LICENSE) for more details.
 
 ### Reusing FidzupCMP ID
 
-The CMP ID _'???'_ used for consent string encoding is the CMP ID of _Fidzup_.
+The CMP ID _'190'_ used for consent string encoding is the CMP ID of _Fidzup_.
 
 You can use this CMP ID as long as you don't alter the source code of _FidzupCMP_. If you do modify the source code, **YOU MUST REGISTER YOUR FORK AS A NEW CMP and change the CMP ID** in ```CMPConstants.CMPInfos.ID```. You can register your forked CMP and obtain your own ID here: https://register.consensu.org/CMP

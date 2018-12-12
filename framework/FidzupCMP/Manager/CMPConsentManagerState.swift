@@ -86,11 +86,16 @@ internal class CMPConsentManagerState {
         provider.saveString(string: string, key: CMPConstants.IABConsentKeys.ConsentString)
     }
     /**
-     Return the current consent string.
-     
-     - Returns: The current consent string.
+     Return the current consent string.     - Returns: The current consent string.
      */
     public func consentString() -> String? {
+        return provider.readString(key: CMPConstants.FidzupCMPConsentKeys.ConsentString)
+    }
+    
+    /**
+     Return the current IAB consent string.     - Returns: The current IAB consent string.
+     */
+    public func getIABConsentString() -> String? {
         return provider.readString(key: CMPConstants.IABConsentKeys.ConsentString)
     }
     

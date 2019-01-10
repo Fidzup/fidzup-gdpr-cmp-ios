@@ -45,7 +45,7 @@ internal struct CMPConstants {
     ///
     /// Note: this key is not part of the IAB TCF specification.
     struct FidzupCMPConsentKeys {
-        static let PurposeId                        = 3 
+        static let PurposeId                        = 6
         static let Key                              = "FidzupCMP_advertisingConsentStatus"
         static let ConsentString                    = "GlobalConsent_ConsentString"
         static let ParsedEditorPurposeConsent       = "GlobalConsent_ParsedEditorPurposeConsents"
@@ -64,11 +64,11 @@ internal struct CMPConstants {
  
     /// Vendor list configuration.
     struct VendorList {
-        static let DefaultEndPoint                  = "https://vendorlist.consensu.org/vendorlist.json"
-        static let VersionedEndPoint                = "https://vendorlist.consensu.org/v-{version}/vendorlist.json"
+        static let DefaultEndPoint                  = "https://vendorlist.fidzup.mgr.consensu.org/vendorlist.json"
+        static let VersionedEndPoint                = "https://vendorlist.fidzup.mgr.consensu.org/v-{version}/vendorlist.json"
         
-        static let DefaultLocalizedEndPoint         = "https://vendorlist.consensu.org/purposes-{language}.json"
-        static let VersionedLocalizedEndPoint       = "https://vendorlist.consensu.org/purposes-{language}-{version}.json"
+        static let DefaultLocalizedEndPoint         = "https://vendorlist.fidzup.mgr.consensu.org/purposes-{language}.json"
+        static let VersionedLocalizedEndPoint       = "https://vendorlist.fidzup.mgr.consensu.org/v-{version}/purposes-{language}.json"
     }
     
 }

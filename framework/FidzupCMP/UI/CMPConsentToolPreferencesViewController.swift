@@ -18,86 +18,75 @@ internal class CMPConsentToolPreferencesViewController: CMPConsentToolBaseViewCo
     
     // MARK: - UI Elements
     
-    static let EditorPurposeSection = 0
-    static let PurposeSection = 1
-    static let VendorSection = 2
-    static let EditorPurposeCellIdentifier = "editorPurposeCell"
+    static let headerCellIdentifier = "headerCell"
+    static let footerCellIdentifier = "footerCell"
     static let PurposeCellIdentifier = "purposeCell"
-    static let VendorsCellIdentifier = "vendorsCell"
 
-    static let EditorPurposeControllerSegue = "editorPurposeControllerSegue"
-    static let PurposeControllerSegue = "purposeControllerSegue"
     static let VendorsControllerSegue = "vendorsControllerSegue"
-    
-    var editorPurposeHeights: [CGFloat] = []
-    var purposeHeights: [CGFloat] = []
 
     // MARK: - Consent Tool Manager
     
     weak var consentToolManager: CMPConsentToolManager?
+    var customEnabled: Bool = true
+    var footerCell: CMPFooterCell?
     
     // MARK: - View lifecycle
 
     override func viewDidLoad() {
-        
-        var purposesCount = consentToolManager?.purposesCount ?? 1
-        while purposesCount > 0 {
-            purposesCount -= 1
-            purposeHeights.append(44)
-        }
-        var editorPurposesCount = consentToolManager?.editorPurposesCount ?? 1
-        while editorPurposesCount > 0 {
-            editorPurposesCount -= 1
-            editorPurposeHeights.append(44)
-        }
         super.viewDidLoad()
         
         self.title = consentToolManager?.configuration.consentManagementScreenTitle
-        
-        // Cancel button
-        let btnBack = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 20))
-        btnBack.setTitle(consentToolManager?.configuration.consentManagementCancelButtonTitle, for: .normal)
-        btnBack.titleLabel?.textAlignment = .left
-        btnBack.addTarget(self, action: #selector(cancelButtonTapped(sender:)), for: .touchUpInside)
-        btnBack.setTitleColor(navigationButtonTintColor, for: .normal)
-        btnBack.setTitleColor(navigationButtonTintColor, for: .highlighted)
-        let leftBarButton = UIBarButtonItem()
-        leftBarButton.customView = btnBack
-        self.navigationItem.leftBarButtonItem = leftBarButton
-        
-        // Save button
-        let btnSave = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 20))
-        btnSave.setTitle(consentToolManager?.configuration.consentManagementSaveButtonTitle, for: .normal)
-        btnSave.titleLabel?.textAlignment = .right
-        btnSave.addTarget(self, action: #selector(saveButtonTapped(sender:)), for: .touchUpInside)
-        btnSave.setTitleColor(navigationButtonTintColor, for: .normal)
-        btnSave.setTitleColor(navigationButtonTintColor, for: .highlighted)
-        let rightBarButton = UIBarButtonItem()
-        rightBarButton.customView = btnSave
-        self.navigationItem.rightBarButtonItem = rightBarButton
-        
-        // Footer
-        self.tableView.tableFooterView = UIView()
-        self.view.backgroundColor = UIColor.groupTableViewBackground
-        
-        setNeedsStatusBarAppearanceUpdate()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        var i:Int = 0
+        var counter:Int = 0
+        
+        if let ctm = consentToolManager {
+            while i < ctm.purposesCount {
+                if let p = ctm.purposeAtIndex(i) {
+                    if ctm.isPurposeAllowed(p) {
+                        counter += 1
+                    }
+                }
+                i += 1
+            }
+            customEnabled = (ctm.purposesCount != counter) && (counter != 0)
+        }
+        
+        
         self.tableView.reloadData()
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == CMPConsentToolPreferencesViewController.VendorsControllerSegue {
+            let vendorsController:CMPConsentToolVendorsViewController = segue.destination as! CMPConsentToolVendorsViewController
+            vendorsController.consentToolManager = self.consentToolManager
+        }
     }
 
     // MARK: - Actions
-    
+    /*
     @objc func cancelButtonTapped(sender: Any) {
         self.consentToolManager?.reset()
         self.dismiss(animated: true, completion: nil)
     }
-    
-    @objc func saveButtonTapped(sender: Any) {
+    */
+    @IBAction func saveButtonTapped(sender: Any) {
         consentToolManager?.dismissConsentTool(save: true)
     }
     
+    @IBAction func closeConsentButtonTapped(_ sender: Any) {
+        consentToolManager?.acceptAllPurposesAndCloseConsentTool()
+    }
+    
+    @IBAction func closeRefuseConsentButtonTapped(_ sender: Any) {
+        consentToolManager?.revokeAllPurposesAndCloseConsentTool()
+    }
+ 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -105,40 +94,38 @@ internal class CMPConsentToolPreferencesViewController: CMPConsentToolBaseViewCo
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == CMPConsentToolPreferencesViewController.EditorPurposeSection {
-            return consentToolManager?.editorPurposesCount ?? 1
-        } else if section == CMPConsentToolPreferencesViewController.PurposeSection {
-            return consentToolManager?.purposesCount ?? 1
-        } else {
+        
+        if section == 0 || section == 2 {
             return 1
+        }
+        else {
+            return consentToolManager?.purposesCount ?? 1
         }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        if indexPath.section == CMPConsentToolPreferencesViewController.EditorPurposeSection {
-            let cell = tableView.dequeueReusableCell(withIdentifier: CMPConsentToolPreferencesViewController.PurposeCellIdentifier) as! CMPPurposeTableViewCell
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: CMPConsentToolPreferencesViewController.headerCellIdentifier) as! CMPHeaderCell
             
-            if let selectedIndexPaths = tableView.indexPathsForSelectedRows {
-                cell.expanded(exp: selectedIndexPaths.contains(indexPath))
+            if let config = self.consentToolManager?.configuration {
+                cell.configure(logo: config.homeScreenLogo, title: config.homeScreenManageConsentButtonTitle, disclaimer: config.homeScreenText, vendorText: config.consentManagementVendorsControllerAccessText)
             }
-            else {
-                cell.expanded(exp: false)
-            }
-            
-            if let purpose = consentToolManager?.editorPurposeAtIndex(indexPath.row) {
-                cell.nameLabel.text = purpose.name
-                cell.setPurposeActive(consent: consentToolManager!.isEditorPurposeAllowed(purpose))
-                cell.purposeDesc.text = purpose.purposeDescription
-                cell.purposeActiveSwitchCallback =  { (switch) -> Void in
-                    self.consentToolManager?.changeEditorPurposeConsent(purpose, consent: cell.purposeIsActive)
-                }
-            }
-            //cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator;
             
             return cell
+        }
+        else if indexPath.section == 2 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: CMPConsentToolPreferencesViewController.footerCellIdentifier) as! CMPFooterCell
             
-        } else if indexPath.section == CMPConsentToolPreferencesViewController.PurposeSection {
+            if let config = self.consentToolManager?.configuration {
+                cell.configure(acceptText: config.homeScreenCloseButtonTitle, customizeText: config.consentManagementScreenTitle, refuseText: config.homeScreenCloseRefuseButtonTitle, customizeEnabled: customEnabled)
+            }
+            
+            footerCell = cell
+            
+            return cell
+        }
+        else {
             let cell = tableView.dequeueReusableCell(withIdentifier: CMPConsentToolPreferencesViewController.PurposeCellIdentifier) as! CMPPurposeTableViewCell
             
             if let selectedIndexPaths = tableView.indexPathsForSelectedRows {
@@ -154,93 +141,36 @@ internal class CMPConsentToolPreferencesViewController: CMPConsentToolBaseViewCo
                 cell.purposeDesc.text = purpose.purposeDescription
                 cell.purposeActiveSwitchCallback =  { (switch) -> Void in
                     self.consentToolManager?.changePurposeConsent(purpose, consent: cell.purposeIsActive)
+                    self.customEnabled = true
+                    if let footer = self.footerCell {
+                        footer.enableCustomizeButton(enable: self.customEnabled)
+                    }
                 }
             }
-            //cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator;
             
             return cell
-            
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: CMPConsentToolPreferencesViewController.VendorsCellIdentifier) as! CMPPreferenceTableViewCell
-            cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator;
-            cell.nameLabel.text = consentToolManager?.configuration.consentManagementVendorsControllerAccessText
-            if let consentToolManager = self.consentToolManager {
-                cell.statusLabel.text = String(consentToolManager.allowedVendorCount) + " / " + String(consentToolManager.activatedVendorCount)
-                //cell.statusLabel.sizeToFit()
-            }
-            cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator;
-            return cell
-        }
-        
-    }
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case CMPConsentToolPreferencesViewController.EditorPurposeSection:
-            return consentToolManager?.configuration.consentManagementScreenEditorPurposesSectionHeaderText
-        case CMPConsentToolPreferencesViewController.PurposeSection:
-            return consentToolManager?.configuration.consentManagementScreenPurposesSectionHeaderText
-        default:
-            return consentToolManager?.configuration.consentManagementScreenVendorsSectionHeaderText
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 32.0
-    }
-    
-    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int){
-        view.tintColor = UIColor.groupTableViewBackground
-        let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.font = UIFont.systemFont(ofSize: 15.0)
-        header.textLabel?.textColor = UIColor.darkGray
-    }
-
-    // MARK: - Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == CMPConsentToolPreferencesViewController.VendorsControllerSegue {
-            let vendorsController:CMPConsentToolVendorsViewController = segue.destination as! CMPConsentToolVendorsViewController
-            vendorsController.consentToolManager = self.consentToolManager
-        } else if segue.identifier == CMPConsentToolPreferencesViewController.PurposeControllerSegue {
-            let purposeController:CMPConsentToolPurposeViewController = segue.destination as! CMPConsentToolPurposeViewController
-            purposeController.consentToolManager = self.consentToolManager
-            if let selectedRow = self.tableView.indexPathForSelectedRow?.row {
-                purposeController.purpose = self.consentToolManager?.purposeAtIndex(selectedRow)
-            }
-        } else if segue.identifier == CMPConsentToolPreferencesViewController.EditorPurposeControllerSegue {
-            let editorPurposeController:CMPConsentToolPurposeViewController = segue.destination as! CMPConsentToolPurposeViewController
-            editorPurposeController.consentToolManager = self.consentToolManager
-            if let selectedRow = self.tableView.indexPathForSelectedRow?.row {
-                editorPurposeController.purpose = self.consentToolManager?.editorPurposeAtIndex(selectedRow)
-            }
         }
     }
  
-    
     ////////
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if indexPath.section == CMPConsentToolPreferencesViewController.EditorPurposeSection ||
-            indexPath.section == CMPConsentToolPreferencesViewController.PurposeSection {
+        if indexPath.section == 1 {
             if let cell = tableView.cellForRow(at: indexPath) as! CMPPurposeTableViewCell? {
                 cell.expanded(exp: true)
             }
         }
-        
         updateTableView()
     }
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         
-        if indexPath.section == CMPConsentToolPreferencesViewController.EditorPurposeSection ||
-            indexPath.section == CMPConsentToolPreferencesViewController.PurposeSection {
+        if indexPath.section == 1 {
             if let cell = tableView.cellForRow(at: indexPath) as! CMPPurposeTableViewCell? {
                 cell.expanded(exp: false)
             }
         }
-        
         updateTableView()
     }
     
@@ -249,30 +179,8 @@ internal class CMPConsentToolPreferencesViewController: CMPConsentToolBaseViewCo
         self.tableView.endUpdates()
     }
     
-    /////////
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == CMPConsentToolPreferencesViewController.EditorPurposeSection {
-            if let selectedIndexPaths = tableView.indexPathsForSelectedRows, selectedIndexPaths.contains(indexPath) {
-                if let cell = tableView.cellForRow(at: indexPath) as! CMPPurposeTableViewCell? {
-                    let height = cell.computeDescHeight()
-                    editorPurposeHeights[indexPath.row] = height // remember for later
-                    return height // Expanded height
-                }
-                return editorPurposeHeights[indexPath.row] // cell is outside the screen, i.e. unavailable : use cache
-            }
-        } else if indexPath.section == CMPConsentToolPreferencesViewController.PurposeSection {
-            if let selectedIndexPaths = tableView.indexPathsForSelectedRows, selectedIndexPaths.contains(indexPath) {
-                if let cell = tableView.cellForRow(at: indexPath) as! CMPPurposeTableViewCell? {
-                    let height = cell.computeDescHeight()
-                    purposeHeights[indexPath.row] = height // remember for later
-                    return height // Expanded height
-                }
-                return purposeHeights[indexPath.row] // cell is outside the screen, i.e. unavailable : use cache
-            }
-        }
+    private func updateButton()
+    {
         
-        return 44.0 // Normal height
     }
-
 }

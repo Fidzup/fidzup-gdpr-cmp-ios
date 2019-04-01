@@ -55,17 +55,19 @@
 		7EEC034920D8114900E4620E /* CMPConsentManagerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEC034820D8114900E4620E /* CMPConsentManagerState.swift */; };
 		7EEC034B20D811CF00E4620E /* CMPConsentManagerStateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEC034A20D811CF00E4620E /* CMPConsentManagerStateProvider.swift */; };
 		831E155F2136D2BC009F5703 /* CMPPurposeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831E155E2136D2BB009F5703 /* CMPPurposeTableViewCell.swift */; };
-		83F2DD14213DAC8D00876B4E /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 83F2DD12213DAC8D00876B4E /* plus.png */; };
-		83F2DD15213DAC8D00876B4E /* minus.png in Resources */ = {isa = PBXBuildFile; fileRef = 83F2DD13213DAC8D00876B4E /* minus.png */; };
-		8504B78820921E020011BE81 /* CMPPreferenceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8504B78520921E020011BE81 /* CMPPreferenceTableViewCell.swift */; };
+		837A5D75224E22FF0044DBEB /* CMPHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A5D74224E22FF0044DBEB /* CMPHeaderCell.swift */; };
+		837A5D76224E22FF0044DBEB /* CMPHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A5D74224E22FF0044DBEB /* CMPHeaderCell.swift */; };
+		837A5D78224E24680044DBEB /* CMPFooterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A5D77224E24680044DBEB /* CMPFooterCell.swift */; };
+		837A5D79224E24680044DBEB /* CMPFooterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837A5D77224E24680044DBEB /* CMPFooterCell.swift */; };
+		837A5D82224E76B60044DBEB /* CMPConsentTool.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 837A5D81224E76B60044DBEB /* CMPConsentTool.storyboard */; };
+		837A5D83224E76B60044DBEB /* CMPConsentTool.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 837A5D81224E76B60044DBEB /* CMPConsentTool.storyboard */; };
+		837A5D8B224E7A490044DBEB /* CMPAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 837A5D8A224E7A490044DBEB /* CMPAssets.xcassets */; };
+		837A5D8C224E7A490044DBEB /* CMPAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 837A5D8A224E7A490044DBEB /* CMPAssets.xcassets */; };
 		8504B78B209237070011BE81 /* CMPVendorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8504B78A209237070011BE81 /* CMPVendorTableViewCell.swift */; };
 		8529CA45209717DE00759E68 /* CMPConsentToolVendorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8529CA44209717DE00759E68 /* CMPConsentToolVendorViewController.swift */; };
 		8529CA4B2097517800759E68 /* CMPRoundedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8529CA4A2097517800759E68 /* CMPRoundedLabel.swift */; };
-		85899A6A2092006100AC1B8C /* CMPConsentTool.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85899A692092006100AC1B8C /* CMPConsentTool.storyboard */; };
 		E934FBD8209084E500FE808C /* CMPConsentToolPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E934FBD7209084E500FE808C /* CMPConsentToolPreferencesViewController.swift */; };
 		E934FBDA209084F400FE808C /* CMPConsentToolVendorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E934FBD9209084F400FE808C /* CMPConsentToolVendorsViewController.swift */; };
-		E934FBDC2090850E00FE808C /* CMPConsentToolPurposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E934FBDB2090850E00FE808C /* CMPConsentToolPurposeViewController.swift */; };
-		E9644106208F8420007FD26A /* CMPConsentToolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9644105208F8420007FD26A /* CMPConsentToolViewController.swift */; };
 		E9644109208F8498007FD26A /* CMPConsentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9644108208F8498007FD26A /* CMPConsentManager.swift */; };
 		E966610D2090BAD100FCA161 /* CMPConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E966610C2090BAD100FCA161 /* CMPConstants.swift */; };
 		E96661132090E0B200FCA161 /* CMPConsentManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96661122090E0B200FCA161 /* CMPConsentManagerDelegate.swift */; };
@@ -137,17 +139,15 @@
 		7EEC034820D8114900E4620E /* CMPConsentManagerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPConsentManagerState.swift; sourceTree = "<group>"; };
 		7EEC034A20D811CF00E4620E /* CMPConsentManagerStateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPConsentManagerStateProvider.swift; sourceTree = "<group>"; };
 		831E155E2136D2BB009F5703 /* CMPPurposeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMPPurposeTableViewCell.swift; sourceTree = "<group>"; };
-		83F2DD12213DAC8D00876B4E /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
-		83F2DD13213DAC8D00876B4E /* minus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minus.png; sourceTree = "<group>"; };
-		8504B78520921E020011BE81 /* CMPPreferenceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMPPreferenceTableViewCell.swift; sourceTree = "<group>"; };
+		837A5D74224E22FF0044DBEB /* CMPHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPHeaderCell.swift; sourceTree = "<group>"; };
+		837A5D77224E24680044DBEB /* CMPFooterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPFooterCell.swift; sourceTree = "<group>"; };
+		837A5D81224E76B60044DBEB /* CMPConsentTool.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CMPConsentTool.storyboard; sourceTree = "<group>"; };
+		837A5D8A224E7A490044DBEB /* CMPAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CMPAssets.xcassets; sourceTree = "<group>"; };
 		8504B78A209237070011BE81 /* CMPVendorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPVendorTableViewCell.swift; sourceTree = "<group>"; };
 		8529CA44209717DE00759E68 /* CMPConsentToolVendorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPConsentToolVendorViewController.swift; sourceTree = "<group>"; };
 		8529CA4A2097517800759E68 /* CMPRoundedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMPRoundedLabel.swift; sourceTree = "<group>"; };
-		85899A692092006100AC1B8C /* CMPConsentTool.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CMPConsentTool.storyboard; sourceTree = "<group>"; };
 		E934FBD7209084E500FE808C /* CMPConsentToolPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPConsentToolPreferencesViewController.swift; sourceTree = "<group>"; };
 		E934FBD9209084F400FE808C /* CMPConsentToolVendorsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPConsentToolVendorsViewController.swift; sourceTree = "<group>"; };
-		E934FBDB2090850E00FE808C /* CMPConsentToolPurposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPConsentToolPurposeViewController.swift; sourceTree = "<group>"; };
-		E9644105208F8420007FD26A /* CMPConsentToolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPConsentToolViewController.swift; sourceTree = "<group>"; };
 		E9644108208F8498007FD26A /* CMPConsentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPConsentManager.swift; sourceTree = "<group>"; };
 		E966610C2090BAD100FCA161 /* CMPConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPConstants.swift; sourceTree = "<group>"; };
 		E96661122090E0B200FCA161 /* CMPConsentManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPConsentManagerDelegate.swift; sourceTree = "<group>"; };
@@ -354,6 +354,15 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		837A5D80224E765D0044DBEB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				837A5D81224E76B60044DBEB /* CMPConsentTool.storyboard */,
+				837A5D8A224E7A490044DBEB /* CMPAssets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		8529CA492097517800759E68 /* Label */ = {
 			isa = PBXGroup;
 			children = (
@@ -366,8 +375,9 @@
 			isa = PBXGroup;
 			children = (
 				831E155E2136D2BB009F5703 /* CMPPurposeTableViewCell.swift */,
-				8504B78520921E020011BE81 /* CMPPreferenceTableViewCell.swift */,
 				8504B78A209237070011BE81 /* CMPVendorTableViewCell.swift */,
+				837A5D74224E22FF0044DBEB /* CMPHeaderCell.swift */,
+				837A5D77224E24680044DBEB /* CMPFooterCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -375,16 +385,14 @@
 		E9644104208F8401007FD26A /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				E96661172092170A00FCA161 /* Resources */,
+				837A5D80224E765D0044DBEB /* Resources */,
 				8529CA492097517800759E68 /* Label */,
 				85899A6B209202B900AC1B8C /* Cell */,
 				E96661182092173F00FCA161 /* CMPConsentToolManager.swift */,
 				E966611A2092174F00FCA161 /* CMPConsentToolManagerDelegate.swift */,
 				E966611C2093222200FCA161 /* CMPConsentToolConfiguration.swift */,
-				E9644105208F8420007FD26A /* CMPConsentToolViewController.swift */,
 				7EE68E2120B56626007394CE /* CMPConsentToolBaseViewController.swift */,
 				E934FBD7209084E500FE808C /* CMPConsentToolPreferencesViewController.swift */,
-				E934FBDB2090850E00FE808C /* CMPConsentToolPurposeViewController.swift */,
 				E934FBD9209084F400FE808C /* CMPConsentToolVendorsViewController.swift */,
 				8529CA44209717DE00759E68 /* CMPConsentToolVendorViewController.swift */,
 			);
@@ -416,16 +424,6 @@
 				E96661152091F52700FCA161 /* AdSupport.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		E96661172092170A00FCA161 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				83F2DD13213DAC8D00876B4E /* minus.png */,
-				83F2DD12213DAC8D00876B4E /* plus.png */,
-				85899A692092006100AC1B8C /* CMPConsentTool.storyboard */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -519,9 +517,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				85899A6A2092006100AC1B8C /* CMPConsentTool.storyboard in Resources */,
-				83F2DD14213DAC8D00876B4E /* plus.png in Resources */,
-				83F2DD15213DAC8D00876B4E /* minus.png in Resources */,
+				837A5D82224E76B60044DBEB /* CMPConsentTool.storyboard in Resources */,
+				837A5D8B224E7A490044DBEB /* CMPAssets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,6 +526,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				837A5D8C224E7A490044DBEB /* CMPAssets.xcassets in Resources */,
+				837A5D83224E76B60044DBEB /* CMPConsentTool.storyboard in Resources */,
 				7E2F053720A0A47400C8C9E0 /* vendors-fr.json in Resources */,
 				7E25FC7E208F51CF00D05789 /* vendors.json in Resources */,
 				7EBB616620932BFF00EAD3C7 /* vendors_updated.json in Resources */,
@@ -549,17 +548,16 @@
 				7EE68E2220B56626007394CE /* CMPConsentToolBaseViewController.swift in Sources */,
 				7E800B542090AEAC001FC83B /* CMPFeature.swift in Sources */,
 				E966611B2092174F00FCA161 /* CMPConsentToolManagerDelegate.swift in Sources */,
-				E934FBDC2090850E00FE808C /* CMPConsentToolPurposeViewController.swift in Sources */,
 				8529CA45209717DE00759E68 /* CMPConsentToolVendorViewController.swift in Sources */,
 				E9644109208F8498007FD26A /* CMPConsentManager.swift in Sources */,
 				56C411D5213968330026E95F /* CMPEditor.swift in Sources */,
-				8504B78820921E020011BE81 /* CMPPreferenceTableViewCell.swift in Sources */,
 				7E2F053320A0721900C8C9E0 /* CMPVendorListURL.swift in Sources */,
 				7E800B552090AEAC001FC83B /* CMPVendor.swift in Sources */,
 				56C411DB213D2F6A0026E95F /* CMPEditorURL.swift in Sources */,
 				E934FBD8209084E500FE808C /* CMPConsentToolPreferencesViewController.swift in Sources */,
 				7E25FC6B208F51AB00D05789 /* CMPBitUtils.swift in Sources */,
 				E96661132090E0B200FCA161 /* CMPConsentManagerDelegate.swift in Sources */,
+				837A5D75224E22FF0044DBEB /* CMPHeaderCell.swift in Sources */,
 				7E800B632090BA44001FC83B /* CMPURLSessionProvider.swift in Sources */,
 				7EEC034B20D811CF00E4620E /* CMPConsentManagerStateProvider.swift in Sources */,
 				56C411D721396FBC0026E95F /* CMPEditor+JSONKeys.swift in Sources */,
@@ -570,6 +568,7 @@
 				E966611D2093222200FCA161 /* CMPConsentToolConfiguration.swift in Sources */,
 				8529CA4B2097517800759E68 /* CMPRoundedLabel.swift in Sources */,
 				7E800B512090AEAC001FC83B /* CMPVendorList+JSONKeys.swift in Sources */,
+				837A5D78224E24680044DBEB /* CMPFooterCell.swift in Sources */,
 				7E25FC6A208F51AB00D05789 /* CMPBase64URL.swift in Sources */,
 				E934FBDA209084F400FE808C /* CMPConsentToolVendorsViewController.swift in Sources */,
 				7E5A5F78209228410025BE51 /* CMPConsentString+Utils.swift in Sources */,
@@ -579,7 +578,6 @@
 				7E800B5C2090B840001FC83B /* CMPVendorListManagerDelegate.swift in Sources */,
 				7E800B5A2090B677001FC83B /* CMPVendorListManager.swift in Sources */,
 				7E25FC6C208F51AB00D05789 /* CMPBitsString.swift in Sources */,
-				E9644106208F8420007FD26A /* CMPConsentToolViewController.swift in Sources */,
 				7E25FC6D208F51AB00D05789 /* String+Padding.swift in Sources */,
 				7E800B652090BB28001FC83B /* CMPURLDefaultSessionProvider.swift in Sources */,
 				7E800B602090B9C9001FC83B /* CMPURLSession.swift in Sources */,
@@ -594,6 +592,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E25FC7F208F51CF00D05789 /* CMPConsentStringTests.swift in Sources */,
+				837A5D76224E22FF0044DBEB /* CMPHeaderCell.swift in Sources */,
 				7E2F0529209CB67500C8C9E0 /* CMPPurposeTests.swift in Sources */,
 				7E2F053520A074B800C8C9E0 /* CMPVendorListURLTests.swift in Sources */,
 				7E2F052B209CB68400C8C9E0 /* CMPFeatureTests.swift in Sources */,
@@ -603,6 +602,7 @@
 				7E5A5F752091F8920025BE51 /* CMPVendorListManagerTests.swift in Sources */,
 				7E9DA0DA20D8FD2000970427 /* CMPConsentManagerStateTests.swift in Sources */,
 				7E2F052D209CB6A500C8C9E0 /* CMPVendorTests.swift in Sources */,
+				837A5D79224E24680044DBEB /* CMPFooterCell.swift in Sources */,
 				7E25FC80208F51CF00D05789 /* CMPBase64URLTests.swift in Sources */,
 				7E25FC81208F51CF00D05789 /* CMPBitsStringTests.swift in Sources */,
 				7E800B672090BF7A001FC83B /* CMPURLSessionTests.swift in Sources */,

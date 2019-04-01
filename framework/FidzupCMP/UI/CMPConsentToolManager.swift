@@ -91,12 +91,14 @@ internal class CMPConsentToolManager {
         
         // Instantiate consent tool UI
         let storyboard = UIStoryboard(name: "CMPConsentTool", bundle: Bundle(for: type(of: self)))
-        let consentToolController: CMPConsentToolViewController = storyboard.instantiateViewController(withIdentifier: "CMPConsentToolViewController") as! CMPConsentToolViewController
+        let consentToolController: CMPConsentToolPreferencesViewController = storyboard.instantiateViewController(withIdentifier: "CMPConsentToolPreferencesViewController") as! CMPConsentToolPreferencesViewController
         consentToolController.consentToolManager = self
+        
+        let navController: UINavigationController = UINavigationController(rootViewController: consentToolController)
         
         // Present Consent Tool VC
         self.presentingViewController = controller
-        controller.present(consentToolController, animated: true, completion: nil)
+        controller.present(navController, animated: true, completion: nil)
     }
     
     /**

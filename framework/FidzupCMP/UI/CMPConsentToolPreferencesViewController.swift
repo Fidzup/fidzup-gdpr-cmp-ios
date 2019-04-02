@@ -52,7 +52,17 @@ internal class CMPConsentToolPreferencesViewController: CMPConsentToolBaseViewCo
                 }
                 i += 1
             }
-            customEnabled = (ctm.purposesCount != counter) && (counter != 0)
+            
+            i=0
+            while i < ctm.activatedVendorCount {
+                let v = ctm.activatedVendors[i]
+                if (ctm.isVendorAllowed(v)) {
+                    counter += 1
+                }
+                i += 1
+            }
+            
+            customEnabled = (counter != ctm.purposesCount + ctm.activatedVendorCount) && (counter != 0)
         }
         
         
